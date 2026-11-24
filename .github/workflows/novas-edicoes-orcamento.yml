@@ -1,0 +1,40 @@
+name: Monitorar novas edições do orçamento (somente alerta)
+on:
+  schedule:
+    - cron: '23 8 * * 3'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  observar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Testar detector
+        run: python scripts/verificar_novas_edicoes.py --self-test
+      - name: Consultar índice público do IBGE
+        id: monitor
+        run: python scripts/verificar_novas_edicoes.py
+      - name: Guardar relatório da consulta
+        uses: actions/upload-artifact@v4
+        with:
+          name: novas-edicoes-ibge
+          path: reports/novas_edicoes_ibge.json
+          retention-days: 30
+      - name: Abrir alerta editorial (se houver nova edição)
+        if: steps.monitor.outputs.nova_tabela == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          titulo='Revisar série orçamentária: nova edição IBGE localizada'
+          if gh issue list --state all --limit 100 --json title --jq '.[].title' | grep -Fxq "$titulo"; then
+            echo 'Alerta já registrado; nenhuma duplicação.'
+          else
+            gh issue create --title "$titulo" --body 'O monitor encontrou referência a tabela de despesa por função em edição recente do IBGE. Verifique o artefato deste workflow, extraia, confira a métrica liquidada e valide os anos antes de publicar. Nenhum número foi alterado automaticamente.' || echo 'Não foi possível abrir issue (Issues podem estar desativadas). Consulte o artefato.'
+          fi

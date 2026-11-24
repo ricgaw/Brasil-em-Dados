@@ -1,0 +1,3 @@
+ano;area;escopo;id_escopo;data_referencia;dotacao_inicial_reais;dotacao_atualizada_reais;empenhado_reais;liquidado_reais;pago_reais;fonte;nota
+2026;Saúde;Ministério da Saúde — total do órgão 36000;36000;2026-04-30;270348227077;269921177227;119696307897;67430711346;63292033928;https://bvsms.saude.gov.br/bvs/publicacoes/1_rqpc_2026.pdf;Primeiro quadrimestre de 2026, cifras referentes ao órgão total e não apenas à função orçamentária Saúde.
+2026;Saúde;Fundação Oswaldo Cruz — unidade 36201, componente do Ministério da Saúde;36201;2026-04-30;9557183503;10171909920;;;;https://bvsms.saude.gov.br/bvs/publicacoes/1_rqpc_2026.pdf;Primeiro quadrimestre de 2026, unidade contida no total do ministério, não somar com a linha 36000.

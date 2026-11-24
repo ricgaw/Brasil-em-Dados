@@ -1,0 +1,23 @@
+name: Monitorar links das fontes (não publica dados)
+on:
+  schedule:
+    - cron: '37 7 * * 0'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verificar-fontes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verificar links oficiais sem alterar conteúdo
+        run: python scripts/monitorar_fontes.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fontes-status
+          path: reports/fontes_status.json
+          retention-days: 30

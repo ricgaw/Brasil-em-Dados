@@ -1,0 +1,43 @@
+name: Verificar e propor novas dotações oficiais
+on:
+  schedule:
+    - cron: '45 9 * * 2'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Conferir série e fontes já publicadas
+        run: python scripts/validate.py
+      - name: Importar apenas URL oficial configurada
+        if: ${{ vars.SIOP_CSV_URL != '' }}
+        env:
+          SOURCE_URL: ${{ vars.SIOP_CSV_URL }}
+        run: |
+          python scripts/importar_dotacoes.py --url "$SOURCE_URL"
+          python scripts/validate.py
+      - name: Criar proposta de atualização para revisão
+        if: ${{ vars.SIOP_CSV_URL != '' }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automacao/novas-dotacoes-funcoes
+          delete-branch: true
+          commit-message: 'Dados: propor atualização das dotações oficiais por função'
+          title: 'Revisar dotações por função — fonte oficial'
+          body: |
+            Atualização programada de dotação inicial e atualizada, sem alterar os registros anteriores.
+            Conferir **a URL da fonte, os anos, o recorte de Orçamento Fiscal/Seguridade, os valores em reais e a metodologia** antes do merge.
+            Este PR não atribui o aumento ou redução a qualquer agente político como causalidade.
+          add-paths: |
+            data/alteracoes_orcamentarias.csv
+            alteracoes.js
+      - name: Informar pendência de origem estruturada
+        if: ${{ vars.SIOP_CSV_URL == '' }}
+        run: echo 'Sem URL de CSV oficial normalizado cadastrada em Settings > Variables > SIOP_CSV_URL. Monitoramento sem importação.'
