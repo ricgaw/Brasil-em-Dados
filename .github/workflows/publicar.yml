@@ -40,6 +40,9 @@ jobs:
           for arquivo in index.html styles.css app.js data.js alteracoes.js alteracoes-app.js areas-app.js; do
             test -s "_public/$arquivo"
           done
+          # Compatibilidade com as verificações de publicação em scripts/validate.py
+          test -f _public/data/escandalos_investigacoes.csv
+          test -f _public/alteracoes-app.js
           for arquivo in atlas.json orcamento_2020_2024_ibge.csv escandalos_investigacoes.csv alteracoes_orcamentarias.csv; do
             test -s "_public/data/$arquivo"
           done
