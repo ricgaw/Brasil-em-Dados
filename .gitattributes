@@ -1,0 +1,5 @@
+# Arquivos gerados devem ser iguais no Windows e no GitHub Actions.
+/data/*.csv text eol=lf
+/data/*.json text eol=lf
+/data.js text eol=lf
+/alteracoes.js text eol=lf
