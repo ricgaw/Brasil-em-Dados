@@ -42,7 +42,7 @@ def load():
 
 def main():
     rows=load()
-    OUTPUT.write_text('window.BUDGET_CHANGES='+json.dumps(rows,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')
+    OUTPUT.write_text('window.BUDGET_CHANGES='+json.dumps(rows,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8',newline='\n')
     print(f'OK: {len(rows)} observações orçamentárias revisadas; alterações.js gerado')
 
 if __name__=='__main__': main()

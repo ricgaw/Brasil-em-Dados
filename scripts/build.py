@@ -140,9 +140,9 @@ with (root/'data'/'escandalos_investigacoes.csv').open('w',encoding='utf-8-sig',
  fields=['id','term','year','period','title','area','kind','stage','actor','facts','boundary','source','source_label']
  writer=csv.DictWriter(file,fieldnames=fields,delimiter=';',lineterminator='\n');writer.writeheader();writer.writerows(obj['cases'])
 
-(root/'data'/'atlas.json').write_text(json.dumps(obj,ensure_ascii=False,indent=2),encoding='utf8')
+(root/'data'/'atlas.json').write_text(json.dumps(obj,ensure_ascii=False,indent=2),encoding='utf8',newline='\n')
 with (root/'data'/'orcamento_2020_2024_ibge.csv').open('w',encoding='utf-8-sig',newline='') as f:
  w=csv.DictWriter(f,fieldnames=['year','area','liquidado_milhoes','fonte','metrica'],delimiter=';',lineterminator='\n');w.writeheader();w.writerows(rows)
 # Embed JSON to work both file:// and GitHub Pages
-(root/'data.js').write_text('window.ATLAS='+json.dumps(obj,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf8')
+(root/'data.js').write_text('window.ATLAS='+json.dumps(obj,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf8',newline='\n')
 print('Generated',len(policies),'policies,',len(rows),'budget records')
