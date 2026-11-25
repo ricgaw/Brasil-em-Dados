@@ -76,3 +76,10 @@ Integração técnica com os arquivos oficiais SIOP LOA CSV.gz e SHA-256: script
 - **Cartões, Presidência, viagens, emendas, obras, dívida, vínculos:** sete frentes documentadas com fonte e metodologia proposta, **sem valores coletados/consolidados**.
 - 2016: mandato com dois ocupantes, indicador anual não atribuído a um único presidente. 2026: ano em aberto.
 - Novos arquivos são publicados pelo GitHub Pages e testados em `tests/test_paineis_v7.py`.
+
+## V8 — Arrecadação tributária nacional
+
+- **2024:** aproximadamente R$ 3,6 trilhões; **2025:** aproximadamente R$ 3,98 trilhões, segundo comunicado da ACSP/Impostômetro. Os valores são nominais e arredondados.
+- **2011–2023:** não há série nacional uniforme conferida no pacote; não preencher com números de receitas federais, porque a abrangência é diferente.
+- **2026:** ainda parcial; o contador animado da capa é uma **simulação de ritmo anual fixo**, não dado em tempo real da ACSP. O contador oficial está disponível via link externo.
+- A incorporação do widget oficial exige usar o gerador da ACSP ou obter autorização de acesso à API.

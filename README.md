@@ -13,6 +13,7 @@ O **Brasil em Dados** é um projeto independente de informação e transparênci
 - **Presidentes e vice-presidentes:** perfis, períodos no cargo e referências legais de remuneração.
 - **Mandatos:** 2011–2014, 2015–2018, 2019–2022 e 2023–2026, com a transição entre Dilma Rousseff e Michel Temer identificada em 2016.
 - **Políticas públicas:** leis, programas e medidas documentadas, com indicação do que ainda precisa ser verificado.
+- **Impostômetro e arrecadação:** projeção animada claramente identificada como estimativa, link para o contador oficial ACSP e histórico nacional documentado (2024–2025; anos anteriores pendentes).
 - **Orçamento federal:** evolução das despesas por função, incluindo Saúde, Educação, Cultura e outras áreas.
 - **Mudanças no orçamento:** comparação entre dotação inicial e atualizada quando há dados oficiais compatíveis.
 - **Escândalos e investigações:** casos documentados, com contexto, fontes e distinção entre investigação, acusação e decisão judicial.
@@ -54,3 +55,5 @@ O Brasil em Dados é uma iniciativa cívica independente, com finalidade informa
 - **Gastos e controle social:** fontes e critérios para cartões corporativos, despesas institucionais, viagens, emendas, obras, dívida e vínculos documentados. **Os valores dessas frentes ainda não foram consolidados**; não são exibidos números estimados.
 
 Para ampliar a cobertura, veja [Plano de atualização V7](PLANO_ATUALIZACOES_V7.md).
+
+Para a metodologia e a integração do contador oficial, consulte [Guia do Impostômetro V8](GUIA_IMPOSTOMETRO_V8.md).
