@@ -1,0 +1,1 @@
+window.CPGF_RESUMO=[];

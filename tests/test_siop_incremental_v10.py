@@ -82,21 +82,47 @@ class IncrementalTests(unittest.TestCase):
                 self.assertEqual(con.consolidate(),2)
             self.assertEqual([Path(x).name for x in seen],['2011.csv','2026-202611.csv'])
     def test_end_to_end_consolidation_in_isolated_copy(self):
+        # A main pode ja conter anos reais consolidados. Este teste deve sempre
+        # iniciar com anos aprovados ficticios e sem observacoes reais de 2011;
+        # caso contrario, ele gera um falso conflito com o importador conservador.
         import shutil
         import subprocess
         with tempfile.TemporaryDirectory() as d:
             copied=Path(d)/'repo'
             shutil.copytree(ROOT,copied,ignore=shutil.ignore_patterns('.git','reports','__pycache__'))
-            fixtures(copied/'data'/'siop_anos',2011)
-            subprocess.run([sys.executable,'scripts/consolidar_siop.py'],cwd=copied,
-                           check=True,capture_output=True,text=True)
-            with (copied/'data'/'alteracoes_orcamentarias.csv').open(encoding='utf-8-sig',newline='') as f:
+            store=copied/'data'/'siop_anos'
+            if store.exists():
+                shutil.rmtree(store)
+            store.mkdir(parents=True)
+
+            target=copied/'data'/'alteracoes_orcamentarias.csv'
+            with target.open(encoding='utf-8-sig',newline='') as f:
+                reader=csv.DictReader(f,delimiter=';')
+                cols=reader.fieldnames
+                original=list(reader)
+            # Remove apenas observacoes da funcao 2011 na COPIA TEMPORARIA.
+            # Nao altera dados publicos, nem registros de outros exercicios.
+            baseline=[row for row in original if not (
+                row['ano']=='2011' and row['id_escopo'].startswith('funcao-'))]
+            with target.open('w',encoding='utf-8-sig',newline='') as f:
+                writer=csv.DictWriter(f,fieldnames=cols,delimiter=';',lineterminator='\n')
+                writer.writeheader()
+                writer.writerows(baseline)
+
+            fixtures(store,2011)
+
+            def checked(*args):
+                result=subprocess.run([sys.executable,*args],cwd=copied,
+                                      capture_output=True,text=True)
+                self.assertEqual(result.returncode,0,
+                    f"Falha em {' '.join(args)}\nSTDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}")
+
+            checked('scripts/consolidar_siop.py')
+            with target.open(encoding='utf-8-sig',newline='') as f:
                 records=list(csv.DictReader(f,delimiter=';'))
             self.assertTrue(any(x['ano']=='2011' and x['area']=='Saúde' for x in records))
-            subprocess.run([sys.executable,'scripts/validate.py'],cwd=copied,
-                           check=True,capture_output=True,text=True)
-            subprocess.run([sys.executable,'scripts/validar_v5.py'],cwd=copied,
-                           check=True,capture_output=True,text=True)
+            checked('scripts/validate.py')
+            checked('scripts/validar_v5.py')
     def test_workflows_are_independent_and_reviewable(self):
         wf=(ROOT/'.github/workflows/coletar-siop-loa.yml').read_text(encoding='utf-8')
         merged=(ROOT/'.github/workflows/consolidar-siop.yml').read_text(encoding='utf-8')

@@ -16,5 +16,6 @@ jobs:
           python-version: '3.12'
       - name: Validar dados e fontes
         run: |
+          PYTHONUTF8=1 python -m unittest discover -s tests -p "test_*.py"
           PYTHONUTF8=1 python scripts/validate.py
           PYTHONUTF8=1 python scripts/validar_v5.py

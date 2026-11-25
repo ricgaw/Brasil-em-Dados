@@ -6,7 +6,7 @@ class NovosPaineis(unittest.TestCase):
   d=json.loads((ROOT/'data/indicadores_sociais.json').read_text(encoding='utf8'))['series']
   work=[x for x in d if x['indicador']=='desocupacao'];infl=[x for x in d if x['indicador']=='ipca']
   self.assertEqual([r['ano'] for r in work],list(range(2012,2026)))
-  self.assertEqual([r['ano'] for r in infl],list(range(2020,2025)))
+  self.assertEqual([r['ano'] for r in infl],list(range(2011,2026)))
   self.assertEqual(next(r['valor'] for r in work if r['ano']==2025),5.6)
   self.assertEqual(next(r['valor'] for r in infl if r['ano']==2024),4.83)
   self.assertEqual(len(d),len({(r['indicador'],r['ano']) for r in d}))

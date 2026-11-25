@@ -29,21 +29,22 @@ jobs:
         env:
           PYTHONUTF8: '1'
         run: |
+          python -m unittest discover -s tests -p "test_*.py"
           python scripts/validate.py
           python scripts/validar_v5.py
       - name: Preparar somente arquivos públicos
         run: |
           set -euo pipefail
           mkdir -p _public/data
-          cp index.html styles.css app.js data.js alteracoes.js alteracoes-app.js areas-app.js indicadores.js frentes.js novos-paineis.js impostos.js _public/
-          cp data/atlas.json data/orcamento_2020_2024_ibge.csv data/escandalos_investigacoes.csv data/alteracoes_orcamentarias.csv data/indicadores_sociais.csv data/indicadores_sociais.json data/frentes_fiscalizacao.csv data/arrecadacao_tributaria.csv _public/data/
-          for arquivo in index.html styles.css app.js data.js alteracoes.js alteracoes-app.js areas-app.js indicadores.js frentes.js novos-paineis.js impostos.js; do
+          cp index.html styles.css app.js data.js alteracoes.js alteracoes-app.js areas-app.js indicadores.js frentes.js novos-paineis.js impostos.js cpgf-data.js cpgf-app.js _public/
+          cp data/atlas.json data/orcamento_2020_2024_ibge.csv data/escandalos_investigacoes.csv data/alteracoes_orcamentarias.csv data/indicadores_sociais.csv data/indicadores_sociais.json data/frentes_fiscalizacao.csv data/arrecadacao_tributaria.csv data/cpgf_resumo.csv _public/data/
+          for arquivo in index.html styles.css app.js data.js alteracoes.js alteracoes-app.js areas-app.js indicadores.js frentes.js novos-paineis.js impostos.js cpgf-data.js cpgf-app.js; do
             test -s "_public/$arquivo"
           done
           # Compatibilidade com as verificações de publicação em scripts/validate.py
           test -f _public/data/escandalos_investigacoes.csv
           test -f _public/alteracoes-app.js
-          for arquivo in atlas.json orcamento_2020_2024_ibge.csv escandalos_investigacoes.csv alteracoes_orcamentarias.csv indicadores_sociais.csv indicadores_sociais.json frentes_fiscalizacao.csv arrecadacao_tributaria.csv; do
+          for arquivo in atlas.json orcamento_2020_2024_ibge.csv escandalos_investigacoes.csv alteracoes_orcamentarias.csv indicadores_sociais.csv indicadores_sociais.json frentes_fiscalizacao.csv arrecadacao_tributaria.csv cpgf_resumo.csv; do
             test -s "_public/data/$arquivo"
           done
           touch _public/.nojekyll

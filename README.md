@@ -51,7 +51,7 @@ O Brasil em Dados é uma iniciativa cívica independente, com finalidade informa
 
 ### Novas áreas (V7)
 
-- **Indicadores sociais por governo:** série anual nacional da desocupação (2012–2025) e IPCA (2020–2024), com fontes IBGE, gráfico, filtros e CSV.
+- **Indicadores sociais por governo:** série anual nacional da desocupação (2012–2025) e IPCA (2011–2025), com fontes IBGE, gráfico, filtros e CSV.
 - **Gastos e controle social:** fontes e critérios para cartões corporativos, despesas institucionais, viagens, emendas, obras, dívida e vínculos documentados. **Os valores dessas frentes ainda não foram consolidados**; não são exibidos números estimados.
 
 Para ampliar a cobertura, veja [Plano de atualização V7](PLANO_ATUALIZACOES_V7.md).
@@ -59,3 +59,12 @@ Para ampliar a cobertura, veja [Plano de atualização V7](PLANO_ATUALIZACOES_V7
 Para a metodologia e a integração do contador oficial, consulte [Guia do Impostômetro V8](GUIA_IMPOSTOMETRO_V8.md).
 
 **Coleta do SIOP por ano:** veja [Guia de coleta incremental V10](GUIA_COLETA_INCREMENTAL_V10.md). Cada ano tem auditoria e Pull Request própria; os dados só chegam aos gráficos após segunda revisão.
+
+### Atualização V11 — indicadores completos e cartões corporativos
+
+- O **IPCA anual de 2011 a 2025** foi incorporado com a série oficial do IBGE e consulta por mandato; a taxa de desocupação continua em 2012–2025.
+- O novo **painel de cartões corporativos** exibe os totais mensais por órgão **somente quando há arquivos CPGF da CGU importados e revisados**. O painel começa explicitamente sem números.
+- O importador aceita exportações oficiais CSV/ZIP, confere competência, agrega valores em centavos, protege competências já aprovadas e **não publica CPFs, portadores ou favorecidos**. O bruto deve ficar fora do Git.
+- Os workflows de validação e publicação executam também os testes automatizados.
+
+**[Guia específico do CPGF](GUIA_CPGF_V11.md)**. A importação automática dos arquivos mensais da CGU ainda depende da confirmação do endpoint de download; não está ativa.

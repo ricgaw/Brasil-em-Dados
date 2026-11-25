@@ -4,3 +4,7 @@
 /scripts/__pycache__/
 /tests/__pycache__/
 *.pyc
+
+# CPGF: dados brutos podem conter CPF e nome de portadores; jamais publicar
+/dados_brutos/
+/data/entradas/cpgf/

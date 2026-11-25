@@ -83,3 +83,12 @@ Integração técnica com os arquivos oficiais SIOP LOA CSV.gz e SHA-256: script
 - **2011–2023:** não há série nacional uniforme conferida no pacote; não preencher com números de receitas federais, porque a abrangência é diferente.
 - **2026:** ainda parcial; o contador animado da capa é uma **simulação de ritmo anual fixo**, não dado em tempo real da ACSP. O contador oficial está disponível via link externo.
 - A incorporação do widget oficial exige usar o gerador da ACSP ou obter autorização de acesso à API.
+
+## V11 — IPCA 2011–2025 e preparação do painel de CPGF (25/11/2026)
+
+- IPCA anual IBGE: 15 observações (2011–2025), acumulado de janeiro a dezembro, valores percentuais. Fonte: https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html?edicao=20932&t=series-historicas
+- Taxa de desocupação PNAD: permanecem 14 observações (2012–2025). Ano 2016 atravessa Dilma/Temer; dados anuais não são imputação causal.
+- CPGF: esquema, painel e importador implementados, porém **nenhuma transação real foi importada nesta entrega**. Cobertura inicial 0 competências; área visível com aviso de ausência. Quando houver importação, a soma por órgão e por competência só representa os períodos conferidos; não é automaticamente total do mandato nem gasto pessoal do presidente.
+- CPGF é divulgado pela CGU em arquivos mensais: https://portaldatransparencia.gov.br/download-de-dados/cpgf/ . Um mesmo período pode ter dados sigilosos não detalhados, e os arquivos não equivalem necessariamente a todas as despesas da Presidência.
+- Proteção de privacidade: arquivos brutos não entram no repositório; sumários contêm órgão/competência/valor/transações/referência SHA-256. CPF e portador não são exportados.
+- A atualização dos números CPGF **não é totalmente autônoma**; exige arquivo oficial obtido e revisão do resumo antes do commit.
