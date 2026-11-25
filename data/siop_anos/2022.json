@@ -1,0 +1,27 @@
+{
+  "coletado_em_utc": "2026-11-25",
+  "fonte_catalogo": "https://orcamento.dados.gov.br/siopdoc/doku.php/acesso_publico:dados_abertos",
+  "metodologia": "https://orcamento.dados.gov.br/siopdoc/doku.php/acesso_publico:dados_abertos_loa",
+  "status": "completa",
+  "exercicios": [
+    {
+      "ano": 2022,
+      "status": "validado",
+      "url": "https://www1.siop.planejamento.gov.br/downloads/rdf/loa2022.csv.gz",
+      "sha256": "79ebc22c46c3a9b6ea51147add1a32c8a99cdd729564678a3dc0f0099f2e641c",
+      "linhas": 70687,
+      "reservas_contingencia_excluidas_do_painel": {
+        "Reserva de Contingência": {
+          "valor_dotacao_inicial": "51018162360",
+          "valor_lei_mais_creditos": "41211958666",
+          "valor_empenhado": "0",
+          "valor_liquidado": "0",
+          "valor_pago": "0"
+        }
+      },
+      "funcoes_com_dotacao_inicial_positiva": 28,
+      "funcoes_sem_dotacao_inicial_positiva": [],
+      "parcial": false
+    }
+  ]
+}
