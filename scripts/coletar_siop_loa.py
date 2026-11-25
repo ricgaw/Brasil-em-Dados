@@ -7,6 +7,10 @@ R$ por função -> CSV normalizado temporário, pronto para importar_dotacoes.py
 Exige conferência humana de alterações históricas e diferenças entre metodologias.
 """
 import argparse
+import http.client
+import socket
+import time
+import urllib.error
 import csv
 from collections import defaultdict
 from datetime import date, datetime, timezone
@@ -53,17 +57,30 @@ def official_https(url):
 
 
 def get(url, limit=MAX_DOWNLOAD):
+    """Baixa somente URLs oficiais; repete falhas temporárias sem ignorar SHA256."""
     if not official_https(url):
         raise ValueError('Download fora de domínio oficial HTTPS: '+url)
     req=urllib.request.Request(url, headers={'User-Agent':'BrasilEmDados/2.0 (pesquisa publica)','Accept':'*/*'})
-    # Não permitir redirecionamento silencioso a servidor não oficial.
-    with urllib.request.urlopen(req, timeout=60) as response:
-        if not official_https(response.geturl()):
-            raise ValueError('Redirecionamento para servidor não governamental: '+response.geturl())
-        data=response.read(limit+1)
-    if len(data)>limit:
-        raise ValueError(f'Download excede {limit} bytes: {url}')
-    return data
+    for attempt in range(1, 4):
+        try:
+            with urllib.request.urlopen(req, timeout=90) as response:
+                if not official_https(response.geturl()):
+                    raise ValueError('Redirecionamento para servidor não governamental: '+response.geturl())
+                data=response.read(limit+1)
+            if len(data)>limit:
+                raise ValueError(f'Download excede {limit} bytes: {url}')
+            return data
+        except (urllib.error.URLError, TimeoutError, socket.timeout, http.client.RemoteDisconnected,
+                http.client.IncompleteRead, ConnectionResetError) as exc:
+            # Não repetir erros definitivos (404, 403, outros 4xx).
+            if isinstance(exc, urllib.error.HTTPError) and exc.code not in (408, 429, 500, 502, 503, 504):
+                raise
+            if attempt == 3:
+                raise RuntimeError(f'Falha de rede depois de {attempt} tentativas para {url}: {exc}') from exc
+            wait = 3 * attempt
+            print(f'Rede instável ao buscar {url} (tentativa {attempt}/3: {exc}); '
+                  f'nova tentativa em {wait}s', file=sys.stderr, flush=True)
+            time.sleep(wait)
 
 
 class Anchors(HTMLParser):
@@ -192,31 +209,44 @@ def main(argv=None):
     assert set(CODES.values())==areas, 'Mapa de funções precisa coincidir com catálogo do site'
     today=datetime.now(timezone.utc).date()
     catalog=get(CATALOG,limit=2_000_000).decode('utf-8','replace')
-    all_rows=[];report=[]
+    all_rows=[]; report=[]
+    audit=ROOT/args.relatorio
+    audit.parent.mkdir(parents=True,exist_ok=True)
+    def save_audit(status, error=None):
+        payload={'coletado_em_utc':today.isoformat(),'fonte_catalogo':CATALOG,
+                 'metodologia':DOC,'status':status,'exercicios':report}
+        if error is not None:
+            payload['falha']=str(error)
+        audit.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n')
+    save_audit('em_andamento')
     for year in args.anos:
-        if year>today.year: raise ValueError(f'Exercício futuro: {year}')
-        urls=discover(catalog,year)
-        blob=get(urls['csv.gz'])
-        manifest=get(urls['sha256'],limit=300_000).decode('utf-8-sig')
-        sha=verify_digest(blob,manifest,year)
-        totals,num_lines=aggregate(blob,year)
-        rows=normalized_rows(year,totals,urls['csv.gz'],today)
-        all_rows.extend(rows)
-        especiais={SPECIAL_CODES[k]:{nome:reais_rounded(valor) for nome,valor in zip(NUMBERS,nums)}
-                   for k,nums in sorted(totals.items()) if k in SPECIAL_CODES}
-        report.append({'ano':year,'url':urls['csv.gz'],'sha256':sha,'linhas':num_lines,
-                       'reservas_contingencia_excluidas_do_painel':especiais,
-                       'funcoes_com_dotacao_inicial_positiva':len(rows),
-                       'funcoes_sem_dotacao_inicial_positiva':[CODES[k] for k,v in sorted(totals.items()) if v[0]<=0],
-                       'parcial':year==today.year})
-        print(f'{year}: {num_lines} linhas; {len(rows)} funções com dotação inicial > 0; SHA256 OK')
+        try:
+            if year>today.year: raise ValueError(f'Exercício futuro: {year}')
+            urls=discover(catalog,year)
+            blob=get(urls['csv.gz'])
+            manifest=get(urls['sha256'],limit=300_000).decode('utf-8-sig')
+            sha=verify_digest(blob,manifest,year)
+            totals,num_lines=aggregate(blob,year)
+            rows=normalized_rows(year,totals,urls['csv.gz'],today)
+            all_rows.extend(rows)
+            especiais={SPECIAL_CODES[k]:{nome:reais_rounded(valor) for nome,valor in zip(NUMBERS,nums)}
+                       for k,nums in sorted(totals.items()) if k in SPECIAL_CODES}
+            report.append({'ano':year,'status':'validado','url':urls['csv.gz'],'sha256':sha,'linhas':num_lines,
+                           'reservas_contingencia_excluidas_do_painel':especiais,
+                           'funcoes_com_dotacao_inicial_positiva':len(rows),
+                           'funcoes_sem_dotacao_inicial_positiva':[CODES[k] for k,v in sorted(totals.items()) if k in CODES and v[0]<=0],
+                           'parcial':year==today.year})
+            save_audit('em_andamento')
+            print(f'{year}: {num_lines} linhas; {len(rows)} funções com dotação inicial > 0; SHA256 OK',flush=True)
+        except Exception as exc:
+            report.append({'ano':year,'status':'falha','erro':str(exc)})
+            save_audit('incompleta_bloqueada',f'{year}: {exc}')
+            raise RuntimeError(f'Ano {year}: {exc}. Série incompleta: nenhuma importação permitida.') from exc
     target=ROOT/args.saida;target.parent.mkdir(parents=True,exist_ok=True)
     with target.open('w',encoding='utf-8',newline='') as f:
         w=csv.DictWriter(f,fieldnames=FIELDS,delimiter=';',lineterminator='\n')
         w.writeheader();w.writerows(all_rows)
-    audit=ROOT/args.relatorio;audit.parent.mkdir(parents=True,exist_ok=True)
-    audit.write_text(json.dumps({'coletado_em_utc':today.isoformat(),'fonte_catalogo':CATALOG,
-                'metodologia':DOC,'exercicios':report},ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+    save_audit('completa')
     print(f'Salvos {len(all_rows)} registros em {target}; auditoria em {audit}')
 
 if __name__=='__main__':
