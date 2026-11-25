@@ -2,7 +2,7 @@ import sys,unittest,gzip,io,csv,hashlib
 from pathlib import Path
 from datetime import date
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from coletar_siop_loa import discover,verify_digest,aggregate,normalized_rows,to_cents,official_https,CODES
+from coletar_siop_loa import discover,verify_digest,aggregate,normalized_rows,to_cents,official_https,CODES,SPECIAL_CODES
 
 class SIOPTests(unittest.TestCase):
     def test_discover(self):
@@ -35,6 +35,22 @@ class SIOPTests(unittest.TestCase):
         self.assertEqual(rows[9]['dotacao_inicial_reais'],'100')
         self.assertEqual(rows[9]['dotacao_atualizada_reais'],'150')
         self.assertEqual(rows[9]['data_referencia'],'2025-12-31')
+    def test_reserva_contingencia_separada_das_28_funcoes(self):
+        self.assertEqual(SPECIAL_CODES['99'],'Reserva de Contingência')
+        output=io.StringIO(); writer=csv.writer(output)
+        writer.writerow(['exercicio','esfera_codigo','funcao_codigo',*('valor_dotacao_inicial','valor_lei_mais_creditos','valor_empenhado','valor_liquidado','valor_pago')])
+        for code in CODES:
+            writer.writerow([2025,'10',code,'100.00','110.00','80.00','70.00','60.00'])
+        writer.writerow([2025,'10','99','9999.00','8888.00','0.00','0.00','0.00'])
+        totals,count=aggregate(gzip.compress(output.getvalue().encode()),2025)
+        self.assertEqual(count,29)
+        self.assertEqual(totals['99'][0],999900)
+        rows=normalized_rows(2025,totals,'https://orcamento.dados.gov.br/loa2025.csv.gz',date(2026,11,25))
+        self.assertEqual(len(rows),28)
+        self.assertTrue(all(row['funcao']!='Reserva de Contingência' for row in rows))
+        output_bad=output.getvalue().replace(',99,9999.00',',98,9999.00')
+        with self.assertRaisesRegex(ValueError,'Código de função desconhecido: 98'):
+            aggregate(gzip.compress(output_bad.encode()),2025)
     def test_errors(self):
         with self.assertRaises(ValueError):to_cents('1,5')
         with self.assertRaises(ValueError):to_cents('0.001')

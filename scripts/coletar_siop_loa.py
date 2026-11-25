@@ -41,6 +41,9 @@ CODES = {
  '22':'Indústria','23':'Comércio e serviços','24':'Comunicações','25':'Energia',
  '26':'Transporte','27':'Desporto e lazer','28':'Encargos especiais',
 }
+# Código oficial que NÃO é uma das 28 funções regulares exibidas no painel.
+# Reservas ficam em relatório de auditoria separado, sem contaminar indicadores.
+SPECIAL_CODES = {'99':'Reserva de Contingência'}
 
 
 def official_https(url):
@@ -140,7 +143,7 @@ def aggregate(blob, year):
                 if row['esfera_codigo'].strip() not in ('10','20'):
                     raise ValueError('Esfera não Fiscal/Seguridade identificada')
                 code=row['funcao_codigo'].strip().zfill(2)
-                if code not in CODES:
+                if code not in CODES and code not in SPECIAL_CODES:
                     raise ValueError('Código de função desconhecido: '+code)
                 amount=totals[code]
                 for idx,col in enumerate(NUMBERS):
@@ -163,6 +166,8 @@ def normalized_rows(year, totals, url, today):
             'Exercício encerrado: 31/12 é marcador do ano, NÃO data de download do arquivo histórico.'))
     results=[]
     for code,nums in sorted(totals.items()):
+        if code in SPECIAL_CODES:
+            continue  # Reserva de Contingência: somente auditoria, não é uma área do painel.
         if nums[0]<=0:
             # O importador atual não suporta variação % em dotação inicial zero.
             # Não transformar ausência/zero em aumento mensurável.
@@ -197,7 +202,10 @@ def main(argv=None):
         totals,num_lines=aggregate(blob,year)
         rows=normalized_rows(year,totals,urls['csv.gz'],today)
         all_rows.extend(rows)
+        especiais={SPECIAL_CODES[k]:{nome:reais_rounded(valor) for nome,valor in zip(NUMBERS,nums)}
+                   for k,nums in sorted(totals.items()) if k in SPECIAL_CODES}
         report.append({'ano':year,'url':urls['csv.gz'],'sha256':sha,'linhas':num_lines,
+                       'reservas_contingencia_excluidas_do_painel':especiais,
                        'funcoes_com_dotacao_inicial_positiva':len(rows),
                        'funcoes_sem_dotacao_inicial_positiva':[CODES[k] for k,v in sorted(totals.items()) if v[0]<=0],
                        'parcial':year==today.year})
