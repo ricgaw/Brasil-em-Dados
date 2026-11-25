@@ -69,3 +69,10 @@ O SIOP permite consultar dotações desde antes de 2011, mas a coleta integral c
 ## Integração SIOP V6 — coleta auditada e proposta de PR
 
 Integração técnica com os arquivos oficiais SIOP LOA CSV.gz e SHA-256: scripts/coletar_siop_loa.py, workflow mensal .github/workflows/coletar-siop-loa.yml e testes em tests/test_coletar_siop.py. Os dados são agregados por função e esferas Fiscal/Seguridade; o coletor apresenta propostas para revisão por Pull Request sem sobrescrever a base anterior. Uma carga histórica 2011–2026 pode ser executada manualmente no Actions. Nesta entrega **não foram incorporados novos números**: a execução remota real do download oficial e da publicação ainda precisa ser confirmada. Orientações e limites: GUIA_COLETA_SIOP_V6.md.
+
+## Novas seções (V7)
+
+- **Indicadores sociais:** 14 valores anuais de desocupação (2012–2025), 5 valores do IPCA (2020–2024), fontes IBGE, CSV e filtros por mandato.
+- **Cartões, Presidência, viagens, emendas, obras, dívida, vínculos:** sete frentes documentadas com fonte e metodologia proposta, **sem valores coletados/consolidados**.
+- 2016: mandato com dois ocupantes, indicador anual não atribuído a um único presidente. 2026: ano em aberto.
+- Novos arquivos são publicados pelo GitHub Pages e testados em `tests/test_paineis_v7.py`.

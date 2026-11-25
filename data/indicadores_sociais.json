@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "atualizado_em": "2026-11-25",
+    "responsabilidade": "Dados de contexto, não resultado atribuível exclusivamente ao presidente",
+    "criterio_mandato": "O ano pertence ao mandato vigente em dezembro; 2016 teve Dilma e Temer e não deve ser atribuído a apenas um deles.",
+    "observacao": "Valores completos disponíveis apenas onde a série tem fonte verificada. 2026 não é ano fechado."
+  },
+  "series": [
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2012,
+      "valor": 7.4,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2013,
+      "valor": 7.3,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2014,
+      "valor": 7.0,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2015,
+      "valor": 8.9,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2016,
+      "valor": 11.6,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2017,
+      "valor": 12.6,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2018,
+      "valor": 12.1,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2019,
+      "valor": 11.8,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2020,
+      "valor": 13.7,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2021,
+      "valor": 14.0,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2022,
+      "valor": 9.6,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2023,
+      "valor": 7.7,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2024,
+      "valor": 6.6,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "desocupacao",
+      "nome": "Taxa anual de desocupação",
+      "ano": 2025,
+      "valor": 5.6,
+      "unidade": "%",
+      "fonte": "IBGE / PNAD Contínua anual",
+      "url": "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Principais_destaques_PNAD_continua/2012_2025/PNAD_continua_retrospectiva_2012_2025.pdf",
+      "nota": "Média anual PNAD Contínua; começa em 2012; referência nacional. 2016 inclui dois presidentes."
+    },
+    {
+      "indicador": "ipca",
+      "nome": "IPCA acumulado no ano",
+      "ano": 2020,
+      "valor": 4.52,
+      "unidade": "%",
+      "fonte": "IBGE / IPCA",
+      "url": "https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html?=&t=series-historicas",
+      "nota": "Variação acumulada de janeiro a dezembro; não é variação do poder de compra individual."
+    },
+    {
+      "indicador": "ipca",
+      "nome": "IPCA acumulado no ano",
+      "ano": 2021,
+      "valor": 10.06,
+      "unidade": "%",
+      "fonte": "IBGE / IPCA",
+      "url": "https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html?=&t=series-historicas",
+      "nota": "Variação acumulada de janeiro a dezembro; não é variação do poder de compra individual."
+    },
+    {
+      "indicador": "ipca",
+      "nome": "IPCA acumulado no ano",
+      "ano": 2022,
+      "valor": 5.79,
+      "unidade": "%",
+      "fonte": "IBGE / IPCA",
+      "url": "https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html?=&t=series-historicas",
+      "nota": "Variação acumulada de janeiro a dezembro; não é variação do poder de compra individual."
+    },
+    {
+      "indicador": "ipca",
+      "nome": "IPCA acumulado no ano",
+      "ano": 2023,
+      "valor": 4.62,
+      "unidade": "%",
+      "fonte": "IBGE / IPCA",
+      "url": "https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html?=&t=series-historicas",
+      "nota": "Variação acumulada de janeiro a dezembro; não é variação do poder de compra individual."
+    },
+    {
+      "indicador": "ipca",
+      "nome": "IPCA acumulado no ano",
+      "ano": 2024,
+      "valor": 4.83,
+      "unidade": "%",
+      "fonte": "IBGE / IPCA",
+      "url": "https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html?=&t=series-historicas",
+      "nota": "Variação acumulada de janeiro a dezembro; não é variação do poder de compra individual."
+    }
+  ]
+}

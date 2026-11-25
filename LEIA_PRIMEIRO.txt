@@ -1,0 +1,22 @@
+Brasil em Dados — Correção do coletor SIOP: função 99
+
+O SIOP traz o código 99 (Reserva de Contingência). Não é uma das 28 funções comuns do painel.
+Esta correção:
+- aceita o código 99 sem falhar;
+- não mistura a reserva com as 28 áreas;
+- informa seus valores separados no JSON de auditoria em reports/siop_coleta.json;
+- continua bloqueando quaisquer outros códigos desconhecidos;
+- adiciona teste automatizado para os dois comportamentos.
+
+Copie scripts/ e tests/ por cima das mesmas pastas locais.
+No terminal do VS Code:
+
+$env:PYTHONUTF8 = "1"
+python -m unittest discover -s tests -p "test_*.py"
+python scripts/validate.py
+python scripts/validar_v5.py
+git add scripts/coletar_siop_loa.py tests/test_coletar_siop.py
+git commit -m "Tratar Reserva de Contingencia na coleta SIOP"
+git push origin main
+
+Depois execute novamente o workflow historico=true. Aguarde a conclusão. Não faça merge da PR até revisar os números e o escopo.
