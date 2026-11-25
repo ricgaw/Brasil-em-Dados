@@ -57,3 +57,5 @@ O Brasil em Dados é uma iniciativa cívica independente, com finalidade informa
 Para ampliar a cobertura, veja [Plano de atualização V7](PLANO_ATUALIZACOES_V7.md).
 
 Para a metodologia e a integração do contador oficial, consulte [Guia do Impostômetro V8](GUIA_IMPOSTOMETRO_V8.md).
+
+**Coleta do SIOP por ano:** veja [Guia de coleta incremental V10](GUIA_COLETA_INCREMENTAL_V10.md). Cada ano tem auditoria e Pull Request própria; os dados só chegam aos gráficos após segunda revisão.

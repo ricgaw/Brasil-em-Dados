@@ -1,64 +1,92 @@
-name: Coletar SIOP LOA por funcao - proposta revisavel
+name: Coletar SIOP por ano - independente e revisavel
 on:
   schedule:
     - cron: '25 8 1 * *'
   workflow_dispatch:
     inputs:
-      historico:
-        description: 'Coletar toda a serie 2011-2026 (carga inicial, revisao obrigatoria)'
+      ano:
+        description: 'Ano individual; selecione 2011 a 2026'
+        type: choice
+        options: ['2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','2026']
+        default: '2022'
+      lote_historico:
+        description: 'Coletar TODOS os anos, independentemente (um ano pode falhar sem cancelar os outros)'
         type: boolean
         default: false
 permissions:
   contents: write
   pull-requests: write
 jobs:
-  coletar:
+  preparar:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    outputs:
+      anos: ${{ steps.anos.outputs.anos }}
+    steps:
+      - name: Definir anos da execução
+        id: anos
+        env:
+          EVENT: ${{ github.event_name }}
+          ANO: ${{ inputs.ano }}
+          LOTE: ${{ inputs.lote_historico }}
+        shell: bash
+        run: |
+          if [ "$EVENT" = schedule ]; then
+            echo 'anos=[2026]' >> "$GITHUB_OUTPUT"
+          elif [ "$LOTE" = true ]; then
+            echo 'anos=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]' >> "$GITHUB_OUTPUT"
+          else
+            [[ "$ANO" =~ ^20(1[1-9]|2[0-6])$ ]] || { echo 'Ano inválido'; exit 1; }
+            echo "anos=[$ANO]" >> "$GITHUB_OUTPUT"
+          fi
+  coletar:
+    needs: preparar
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        ano: ${{ fromJSON(needs.preparar.outputs.anos) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Conferir base publicada
+      - name: Validar base antes de coletar
         run: |
           python scripts/validate.py
           python scripts/validar_v5.py
           python -m unittest discover -s tests -p 'test_*.py'
-      - name: Baixar LOA oficial e verificar SHA-256
-        run: |
-          if [ "${{ inputs.historico }}" = 'true' ]; then
-            python scripts/coletar_siop_loa.py --anos 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2026
-          else
-            python scripts/coletar_siop_loa.py --anos 2025 2026
-          fi
-      - name: Salvar auditoria da coleta, mesmo com bloqueio
+      - name: Coletar e verificar SOMENTE o ano ${{ matrix.ano }}
+        run: python scripts/siop_incremental.py --ano ${{ matrix.ano }}
+      - name: Salvar auditoria mesmo se houver bloqueio
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: siop-relatorio-coleta
-          path: reports/
+          name: siop-auditoria-${{ matrix.ano }}
+          path: |
+            reports/siop_${{ matrix.ano }}.json
+            reports/siop_${{ matrix.ano }}.csv
           retention-days: 30
-          if-no-files-found: warn
-      - name: Importar somente observacoes novas
+          if-no-files-found: ignore
+      - name: Conferir que a coleta não alterou o portal publicado
         run: |
-          python scripts/importar_dotacoes.py --arquivo reports/siop_proposta.csv
           python scripts/validate.py
           python scripts/validar_v5.py
-      - name: Criar PR para revisao humana
+      - name: Criar PR independente para ${{ matrix.ano }}
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: automacao/siop-loa-funcoes
+          branch: automacao/siop-ano-${{ matrix.ano }}
           delete-branch: true
-          commit-message: 'Dados SIOP: atualizar LOA por funcao apos SHA256'
-          title: 'Revisar LOA por funcao - dados oficiais SIOP'
-          body: |
-            **Proposta automatica, NAO publicar sem revisao humana.**
-            Fonte: CSV.gz SIOP (LOA), checksum SHA256 verificado, por funcao e esferas 10/20.
-            Conferir ano e escopo, receita vs despesa, LOA inicial e atualizada,
-            liquidado (nao inclui RPNP), valores nominais e a posicao parcial de 2026.
-            Revisoes de observacoes antigas sao bloqueadas, sem sobrescrita.
-            Os dados do IBGE 2020-2024 permanecem em serie separada.
           add-paths: |
-            data/alteracoes_orcamentarias.csv
-            alteracoes.js
+            data/siop_anos/${{ matrix.ano }}*.csv
+            data/siop_anos/${{ matrix.ano }}*.json
+          commit-message: 'SIOP: registrar ano ${{ matrix.ano }} auditado'
+          title: 'Revisar LOA SIOP do ano ${{ matrix.ano }}'
+          body: |
+            **Etapa 1 de 2 — somente fonte por ano, ainda não altera os gráficos.**
+            Arquivo oficial SIOP SHA-256 conferido. Verifique o CSV e a auditoria
+            (incluindo Reserva de Contingência fora das 28 funções regulares).
+            O exercício vigente recebe uma fotografia por mês; históricos não são sobrescritos.
+            **Após merge desta PR:** outro workflow propõe a consolidação para o site.
+            Ambas as propostas requerem revisão humana. Nada é aprovado automaticamente.

@@ -1,0 +1,40 @@
+name: Consolidar anos aprovados do SIOP - PR revisavel
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/siop_anos/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  consolidar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Conferir arquivos e consolidar anos aceitos
+        run: |
+          python scripts/consolidar_siop.py
+          python scripts/validate.py
+          python scripts/validar_v5.py
+          python -m unittest discover -s tests -p 'test_*.py'
+      - name: Propor atualização do site (segunda aprovação)
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automacao/siop-consolidacao
+          delete-branch: true
+          add-paths: |
+            data/alteracoes_orcamentarias.csv
+            alteracoes.js
+          commit-message: 'SIOP: consolidar anos aprovados sem substituir histórico'
+          title: 'Revisar dados orçamentários consolidados do SIOP'
+          body: |
+            **Etapa 2 de 2 — atualização dos gráficos depois de revisão humana.**
+            A origem são os arquivos anuais previamente aprovados em data/siop_anos/.
+            A importação preserva linhas existentes e bloqueia revisões divergentes.
+            Conferir diferenças por função e metodologia antes do merge.
