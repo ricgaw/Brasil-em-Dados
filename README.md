@@ -115,3 +115,8 @@ A publicação no GitHub Pages inclui `alteracoes.js`, `alteracoes-app.js` e `da
 ## V5 — Catálogo orçamentário e fluxo de ingestão (24/11/2026)
 
 Foram incorporadas as **28 funções** a uma nova visualização no módulo de alterações, com minigráficos de liquidação 2020–2024 e matriz de disponibilidade 2011–2026. O CSV de alterações continua com **2 observações de órgãos/unidade** de abril de 2026; não foram criadas dotações de função sem fonte. O workflow de importação semanal só opera após configurar uma URL oficial normalizada `SIOP_CSV_URL`; cria PR para revisão, não faz merge de valores não auditados. Consulte `GUIA_AUTOMACAO_V5.md`.
+
+
+## Integração SIOP V6 — coleta auditada e proposta de PR
+
+Integração técnica com os arquivos oficiais SIOP LOA CSV.gz e SHA-256: scripts/coletar_siop_loa.py, workflow mensal .github/workflows/coletar-siop-loa.yml e testes em tests/test_coletar_siop.py. Os dados são agregados por função e esferas Fiscal/Seguridade; o coletor apresenta propostas para revisão por Pull Request sem sobrescrever a base anterior. Uma carga histórica 2011–2026 pode ser executada manualmente no Actions. Nesta entrega **não foram incorporados novos números**: a execução remota real do download oficial e da publicação ainda precisa ser confirmada. Orientações e limites: GUIA_COLETA_SIOP_V6.md.

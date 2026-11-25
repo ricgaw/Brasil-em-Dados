@@ -18,6 +18,10 @@ assert not official_url('http://orcamento.dados.gov.br/a.csv')
 try:parse_int('12.3','d')
 except ValueError:pass
 else:raise AssertionError('Valores em milhares/decimais não devem ser aceitos como reais inteiros')
-assert all(not r.get('id_escopo','').startswith('funcao-') for r in csv.DictReader((root/'data/alteracoes_orcamentarias.csv').open(encoding='utf-8-sig'),delimiter=';'))
+# Registros institucionais antigos coexistem com novos registros por função; nenhum
+# filtro deve proibir a importação real de funções prevista nesta versão.
+with (root/'data/alteracoes_orcamentarias.csv').open(encoding='utf-8-sig',newline='') as fi:
+    dots=list(csv.DictReader(fi,delimiter=';'))
+assert all((not r['id_escopo'].startswith('funcao-')) or (r['area'] in areas and r['escopo']==f'União — função {r["area"]}') for r in dots)
 subprocess.check_call(['node','--check',str(root/'areas-app.js')])
 print('OK: 28 funções, lacunas transparentes, importação conservadora, monitoramento e publicação preparados.')

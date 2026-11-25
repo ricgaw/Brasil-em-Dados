@@ -1,0 +1,6 @@
+# Relatórios temporários da coleta: guardados como artefatos dos Actions
+/reports/
+/__pycache__/
+/scripts/__pycache__/
+/tests/__pycache__/
+*.pyc

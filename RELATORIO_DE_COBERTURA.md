@@ -64,3 +64,8 @@ O SIOP permite consultar dotações desde antes de 2011, mas a coleta integral c
 ## V5 — Cobertura por função e infraestrutura de atualização
 
 **28 funções orçamentárias** podem ser pesquisadas no catálogo, com os **139 pontos de despesa liquidada 2020–2024** previamente verificados. Na **matriz de dotação inicial/atualizada por função de 2011–2026, ainda não existem linhas auditadas por função**; os dois recortes de 2026 referem-se ao Ministério da Saúde e à Fiocruz, que não são a função orçamentária inteira. Uma rotina de importação validada e workflow recorrente foram preparados, mas a ingestão automática depende de fonte oficial normalizada configurada e os PRs dependem de revisão antes do merge. Esta versão não declara concluída a série de dotações nem a automação numérica fim a fim.
+
+
+## Integração SIOP V6 — coleta auditada e proposta de PR
+
+Integração técnica com os arquivos oficiais SIOP LOA CSV.gz e SHA-256: scripts/coletar_siop_loa.py, workflow mensal .github/workflows/coletar-siop-loa.yml e testes em tests/test_coletar_siop.py. Os dados são agregados por função e esferas Fiscal/Seguridade; o coletor apresenta propostas para revisão por Pull Request sem sobrescrever a base anterior. Uma carga histórica 2011–2026 pode ser executada manualmente no Actions. Nesta entrega **não foram incorporados novos números**: a execução remota real do download oficial e da publicação ainda precisa ser confirmada. Orientações e limites: GUIA_COLETA_SIOP_V6.md.

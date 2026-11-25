@@ -1,0 +1,64 @@
+name: Coletar SIOP LOA por funcao - proposta revisavel
+on:
+  schedule:
+    - cron: '25 8 1 * *'
+  workflow_dispatch:
+    inputs:
+      historico:
+        description: 'Coletar toda a serie 2011-2026 (carga inicial, revisao obrigatoria)'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Conferir base publicada
+        run: |
+          python scripts/validate.py
+          python scripts/validar_v5.py
+          python -m unittest discover -s tests -p 'test_*.py'
+      - name: Baixar LOA oficial e verificar SHA-256
+        run: |
+          if [ "${{ inputs.historico }}" = 'true' ]; then
+            python scripts/coletar_siop_loa.py --anos 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2026
+          else
+            python scripts/coletar_siop_loa.py --anos 2025 2026
+          fi
+      - name: Salvar auditoria da coleta, mesmo com bloqueio
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: siop-relatorio-coleta
+          path: reports/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Importar somente observacoes novas
+        run: |
+          python scripts/importar_dotacoes.py --arquivo reports/siop_proposta.csv
+          python scripts/validate.py
+          python scripts/validar_v5.py
+      - name: Criar PR para revisao humana
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automacao/siop-loa-funcoes
+          delete-branch: true
+          commit-message: 'Dados SIOP: atualizar LOA por funcao apos SHA256'
+          title: 'Revisar LOA por funcao - dados oficiais SIOP'
+          body: |
+            **Proposta automatica, NAO publicar sem revisao humana.**
+            Fonte: CSV.gz SIOP (LOA), checksum SHA256 verificado, por funcao e esferas 10/20.
+            Conferir ano e escopo, receita vs despesa, LOA inicial e atualizada,
+            liquidado (nao inclui RPNP), valores nominais e a posicao parcial de 2026.
+            Revisoes de observacoes antigas sao bloqueadas, sem sobrescrita.
+            Os dados do IBGE 2020-2024 permanecem em serie separada.
+          add-paths: |
+            data/alteracoes_orcamentarias.csv
+            alteracoes.js
