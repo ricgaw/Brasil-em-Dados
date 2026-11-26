@@ -1,0 +1,56 @@
+name: Monitorar documentos das estatais (SEST, automático)
+on:
+  schedule:
+    - cron: '35 9 5,20 * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: monitorar-estatais-main
+  cancel-in-progress: false
+jobs:
+  documentos:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verificar anexos oficiais de finanças e demonstrações
+        env:
+          PYTHONUTF8: '1'
+        run: |
+          python scripts/monitorar_estatais_v18.py
+          python scripts/cobertura_v18.py
+      - name: Validar site e impedir publicação de dados inconsistentes
+        env:
+          PYTHONUTF8: '1'
+        run: |
+          python -m unittest discover -s tests -p 'test_*.py'
+          python scripts/validate.py
+          python scripts/validar_v5.py
+          python scripts/auditar_pipeline.py
+      - name: Registrar mudanças documentais se houver
+        id: save
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/fontes_estatais_v18.json cobertura-v18.js
+          if git diff --cached --quiet; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Fontes: atualizar catálogo de estatais SEST'
+          git push origin HEAD:main
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+      - name: Republicar catálogo quando modificado
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh workflow run publicar.yml --ref main

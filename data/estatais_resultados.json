@@ -39,56 +39,6 @@
   ],
   "registros": [
     {
-      "empresa": "petrobras",
-      "ano": 2021,
-      "resultado_bi_brl": 106.7,
-      "natureza_resultado": "Lucro líquido divulgado",
-      "receita_bi_brl": null,
-      "endividamento_bi": null,
-      "moeda_endividamento": null,
-      "fonte": "https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf"
-    },
-    {
-      "empresa": "petrobras",
-      "ano": 2022,
-      "resultado_bi_brl": 188.3,
-      "natureza_resultado": "Lucro líquido divulgado",
-      "receita_bi_brl": null,
-      "endividamento_bi": null,
-      "moeda_endividamento": null,
-      "fonte": "https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf"
-    },
-    {
-      "empresa": "petrobras",
-      "ano": 2023,
-      "resultado_bi_brl": 124.6,
-      "natureza_resultado": "Lucro líquido divulgado",
-      "receita_bi_brl": null,
-      "endividamento_bi": null,
-      "moeda_endividamento": null,
-      "fonte": "https://agencia.petrobras.com.br/pt/w/negocio/petrobras-alcanca-segundo-maior-lucro-liquido-de-sua-historia-em-2023-r-124-6-bilhoes"
-    },
-    {
-      "empresa": "petrobras",
-      "ano": 2024,
-      "resultado_bi_brl": 36.606,
-      "natureza_resultado": "Lucro atribuído aos acionistas Petrobras",
-      "receita_bi_brl": 490.829,
-      "endividamento_bi": 60.311,
-      "moeda_endividamento": "USD",
-      "fonte": "https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true"
-    },
-    {
-      "empresa": "petrobras",
-      "ano": 2025,
-      "resultado_bi_brl": 110.129,
-      "natureza_resultado": "Lucro atribuído aos acionistas Petrobras",
-      "receita_bi_brl": 497.549,
-      "endividamento_bi": 69.793,
-      "moeda_endividamento": "USD",
-      "fonte": "https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true"
-    },
-    {
       "empresa": "bb",
       "ano": 2023,
       "resultado_bi_brl": 35.6,
@@ -107,6 +57,16 @@
       "endividamento_bi": null,
       "moeda_endividamento": null,
       "fonte": "https://imprensa.bb.com.br/bb-tem-lucro-liquido-ajustado-de-r-379-bilhoes-em-2024/"
+    },
+    {
+      "empresa": "bb",
+      "ano": 2025,
+      "resultado_bi_brl": 20.685,
+      "natureza_resultado": "Lucro líquido ajustado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-02/banco-do-brasil-tem-lucro-de-r-2068-bilhoes-em-2025"
     },
     {
       "empresa": "caixa",
@@ -167,6 +127,56 @@
       "endividamento_bi": null,
       "moeda_endividamento": null,
       "fonte": "https://sites.tcu.gov.br/listadealtorisco/sustentabilidade_economico_financeira_dos_correios.html"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2021,
+      "resultado_bi_brl": 106.7,
+      "natureza_resultado": "Lucro líquido divulgado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2022,
+      "resultado_bi_brl": 188.3,
+      "natureza_resultado": "Lucro líquido divulgado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2023,
+      "resultado_bi_brl": 124.6,
+      "natureza_resultado": "Lucro líquido divulgado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://agencia.petrobras.com.br/pt/w/negocio/petrobras-alcanca-segundo-maior-lucro-liquido-de-sua-historia-em-2023-r-124-6-bilhoes"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2024,
+      "resultado_bi_brl": 36.606,
+      "natureza_resultado": "Lucro atribuído aos acionistas Petrobras",
+      "receita_bi_brl": 490.829,
+      "endividamento_bi": 60.311,
+      "moeda_endividamento": "USD",
+      "fonte": "https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2025,
+      "resultado_bi_brl": 110.129,
+      "natureza_resultado": "Lucro atribuído aos acionistas Petrobras",
+      "receita_bi_brl": 497.549,
+      "endividamento_bi": 69.793,
+      "moeda_endividamento": "USD",
+      "fonte": "https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true"
     }
   ]
 }

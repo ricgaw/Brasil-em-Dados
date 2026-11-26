@@ -1,14 +1,15 @@
 empresa;ano;resultado_bi_brl;natureza_resultado;receita_bi_brl;endividamento_bi;moeda_endividamento;fonte
-petrobras;2021;106.7;Lucro líquido divulgado;;;;https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf
-petrobras;2022;188.3;Lucro líquido divulgado;;;;https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf
-petrobras;2023;124.6;Lucro líquido divulgado;;;;https://agencia.petrobras.com.br/pt/w/negocio/petrobras-alcanca-segundo-maior-lucro-liquido-de-sua-historia-em-2023-r-124-6-bilhoes
-petrobras;2024;36.606;Lucro atribuído aos acionistas Petrobras;490.829;60.311;USD;https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true
-petrobras;2025;110.129;Lucro atribuído aos acionistas Petrobras;497.549;69.793;USD;https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true
 bb;2023;35.6;Lucro líquido ajustado;;;;https://investalk.bb.com.br/noticias/mercado/bb-bbas3-resultado-4t23
 bb;2024;37.9;Lucro líquido ajustado;;;;https://imprensa.bb.com.br/bb-tem-lucro-liquido-ajustado-de-r-379-bilhoes-em-2024/
+bb;2025;20.685;Lucro líquido ajustado;;;;https://agenciabrasil.ebc.com.br/economia/noticia/2026-02/banco-do-brasil-tem-lucro-de-r-2068-bilhoes-em-2025
 caixa;2022;9.2;Lucro líquido recorrente;;;;https://caixanoticias.caixa.gov.br/Paginas/Not%C3%ADcias/2023/03-MARCO/caixa-registra-lucro-liquido-recorrente-de-r-92-bilhoes-em-2022.aspx
 caixa;2023;10.6;Lucro líquido recorrente;;;;https://caixanoticias.caixa.gov.br/Paginas/Not%C3%ADcias/2024/02-FEVEREIRO/caixa-tem-lucro-liquido-recorrente-de-r-106-bilhoes-em-2023-e-de-r-29-bilhoes-no-4t23.aspx
 caixa;2024;14.0;Lucro líquido recorrente;;;;https://caixanoticias.caixa.gov.br/Paginas/Not%C3%ADcias/2025/02-FEVEREIRO/CAIXA-registra-lucro-liquido-recorrente-de-RS-140-bilhoes-em-2024.aspx
 caixa;2025;15.5;Lucro líquido recorrente;;;;https://caixanoticias.caixa.gov.br/Paginas/Not%C3%ADcias/2026/03-MAR%C3%87O/CAIXA-alcancou-lucro-liquido-recorrente-recorde-de-RS-155-bilhoes-em-2025.aspx
 correios;2024;-2.45;Prejuízo líquido conforme TCU;;;;https://sites.tcu.gov.br/listadealtorisco/sustentabilidade_economico_financeira_dos_correios.html
 correios;2025;-8.46;Prejuízo líquido conforme TCU;;;;https://sites.tcu.gov.br/listadealtorisco/sustentabilidade_economico_financeira_dos_correios.html
+petrobras;2021;106.7;Lucro líquido divulgado;;;;https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf
+petrobras;2022;188.3;Lucro líquido divulgado;;;;https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf
+petrobras;2023;124.6;Lucro líquido divulgado;;;;https://agencia.petrobras.com.br/pt/w/negocio/petrobras-alcanca-segundo-maior-lucro-liquido-de-sua-historia-em-2023-r-124-6-bilhoes
+petrobras;2024;36.606;Lucro atribuído aos acionistas Petrobras;490.829;60.311;USD;https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true
+petrobras;2025;110.129;Lucro atribuído aos acionistas Petrobras;497.549;69.793;USD;https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true

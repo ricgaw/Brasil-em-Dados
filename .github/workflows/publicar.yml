@@ -33,12 +33,18 @@ jobs:
           python scripts/validate.py
           python scripts/validar_v5.py
           python scripts/auditar_pipeline.py
+      - name: Atualizar painel de cobertura a partir da base validada
+        run: python scripts/cobertura_v18.py
       - name: Preparar somente arquivos públicos
         run: |
           set -euo pipefail
           mkdir -p _public/data
           cp index.html styles.css app.js data.js alteracoes.js alteracoes-app.js areas-app.js indicadores.js novos-paineis.js impostos.js dossies-v15.js estatais-divida-data.js estatais-divida-app.js _public/
+          cp cobertura-v18.js cobertura-v18-app.js _public/
           cp data/atlas.json data/orcamento_2020_2024_ibge.csv data/escandalos_investigacoes.csv data/alteracoes_orcamentarias.csv data/indicadores_sociais.csv data/indicadores_sociais.json data/arrecadacao_tributaria.csv data/divida_pib_bcb.csv data/estatais_resultados.csv data/divida_pib_bcb.json data/estatais_resultados.json _public/data/
+          for arquivo in cobertura-v18.js cobertura-v18-app.js; do
+            test -s "_public/$arquivo"
+          done
           for arquivo in index.html styles.css app.js data.js alteracoes.js alteracoes-app.js areas-app.js indicadores.js novos-paineis.js impostos.js dossies-v15.js estatais-divida-data.js estatais-divida-app.js; do
             test -s "_public/$arquivo"
           done

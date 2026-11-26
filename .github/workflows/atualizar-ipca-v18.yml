@@ -1,0 +1,57 @@
+name: Atualizar IPCA anual (BCB/IBGE, automático)
+on:
+  schedule:
+    # Mensal, mas só adiciona 2026 quando todos os 12 meses oficiais estiverem disponíveis.
+    - cron: '25 9 12 * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: atualizar-ipca-main
+  cancel-in-progress: false
+jobs:
+  ipca:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Coletar dados de inflação após fechamento anual
+        env:
+          PYTHONUTF8: '1'
+        run: |
+          python scripts/atualizar_ipca_bcb_v18.py
+          python scripts/cobertura_v18.py
+      - name: Validar arquivos
+        env:
+          PYTHONUTF8: '1'
+        run: |
+          python -m unittest discover -s tests -p 'test_*.py'
+          python scripts/validate.py
+          python scripts/validar_v5.py
+          python scripts/auditar_pipeline.py
+      - name: Commitar só com atualização real
+        id: save
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/indicadores_sociais.csv data/indicadores_sociais.json indicadores.js cobertura-v18.js
+          if git diff --cached --quiet; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Indicadores: fechar IPCA anual do BCB/IBGE'
+          git push origin HEAD:main
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+      - name: Revalidar e publicar após atualização
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh workflow run publicar.yml --ref main
