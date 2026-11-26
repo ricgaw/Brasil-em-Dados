@@ -1,0 +1,27 @@
+{
+  "coletado_em_utc": "2026-11-25",
+  "fonte_catalogo": "https://orcamento.dados.gov.br/siopdoc/doku.php/acesso_publico:dados_abertos",
+  "metodologia": "https://orcamento.dados.gov.br/siopdoc/doku.php/acesso_publico:dados_abertos_loa",
+  "status": "completa",
+  "exercicios": [
+    {
+      "ano": 2014,
+      "status": "validado",
+      "url": "https://www1.siop.planejamento.gov.br/downloads/rdf/loa2014.csv.gz",
+      "sha256": "595ee5f92dd1cccefc85a4368e5943d3e3acef94677a50864b28e169c745205e",
+      "linhas": 80576,
+      "reservas_contingencia_excluidas_do_painel": {
+        "Reserva de Contingência": {
+          "valor_dotacao_inicial": "31577857866",
+          "valor_lei_mais_creditos": "30613635499",
+          "valor_empenhado": "0",
+          "valor_liquidado": "0",
+          "valor_pago": "0"
+        }
+      },
+      "funcoes_com_dotacao_inicial_positiva": 28,
+      "funcoes_sem_dotacao_inicial_positiva": [],
+      "parcial": false
+    }
+  ]
+}
