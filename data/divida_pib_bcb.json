@@ -1,0 +1,151 @@
+{
+  "serie": "Dívida Bruta do Governo Geral (DBGG) / PIB",
+  "fonte": "Banco Central do Brasil, SGS 13762",
+  "data_consulta": "2026-11-26",
+  "observacoes": [
+    {
+      "ano": 2011,
+      "mes": 12,
+      "dbgg_pct_pib": 51.27,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2012,
+      "mes": 12,
+      "dbgg_pct_pib": 53.67,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2013,
+      "mes": 12,
+      "dbgg_pct_pib": 51.54,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2014,
+      "mes": 12,
+      "dbgg_pct_pib": 56.28,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2015,
+      "mes": 12,
+      "dbgg_pct_pib": 65.5,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2016,
+      "mes": 12,
+      "dbgg_pct_pib": 69.84,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2017,
+      "mes": 12,
+      "dbgg_pct_pib": 73.72,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2018,
+      "mes": 12,
+      "dbgg_pct_pib": 75.27,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2019,
+      "mes": 12,
+      "dbgg_pct_pib": 74.44,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2020,
+      "mes": 12,
+      "dbgg_pct_pib": 86.94,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2021,
+      "mes": 12,
+      "dbgg_pct_pib": 77.31,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2022,
+      "mes": 12,
+      "dbgg_pct_pib": 71.68,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2023,
+      "mes": 12,
+      "dbgg_pct_pib": 73.83,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2024,
+      "mes": 12,
+      "dbgg_pct_pib": 76.27,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2025,
+      "mes": 12,
+      "dbgg_pct_pib": 78.64,
+      "periodo": "Fechamento de dezembro",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "anual"
+    },
+    {
+      "ano": 2026,
+      "mes": 6,
+      "dbgg_pct_pib": 81.94,
+      "periodo": "Junho de 2026 · parcial",
+      "fonte": "https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008",
+      "codigo_sgs": 13762,
+      "estado": "parcial"
+    }
+  ]
+}

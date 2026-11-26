@@ -17,5 +17,5 @@ class EditorialV15(unittest.TestCase):
   self.assertIn('28',js)
  def test_deploy_includes_js(self):
   w=(root/'.github/workflows/publicar.yml').read_text(encoding='utf8')
-  self.assertIn('dossies-v15.js _public/',w)
-  self.assertIn('dossies-v15.js; do',w)
+  self.assertIn('dossies-v15.js estatais-divida-data.js estatais-divida-app.js _public/',w)
+  self.assertIn('dossies-v15.js estatais-divida-data.js estatais-divida-app.js; do',w)

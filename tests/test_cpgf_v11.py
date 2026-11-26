@@ -31,9 +31,9 @@ class CPGFTests(unittest.TestCase):
    with zipfile.ZipFile(z,'w') as f:f.write(src,arcname='202501_CPGF.csv')
    self.assertEqual(sum(x['transacoes'] for x in parse(z,'202501')),3)
  def test_layout_sources_and_blank_state(self):
-  self.assertIn('id="cartoes"',(ROOT/'index.html').read_text(encoding='utf-8'))
-  self.assertIn('cpgf-data.js',(ROOT/'.github/workflows/publicar.yml').read_text(encoding='utf-8'))
-  self.assertIn('cpgf_resumo.csv',(ROOT/'.github/workflows/publicar.yml').read_text(encoding='utf-8'))
+  self.assertNotIn('id="cartoes"',(ROOT/'index.html').read_text(encoding='utf-8'))
+  self.assertNotIn('cpgf-data.js _public/',(ROOT/'.github/workflows/publicar.yml').read_text(encoding='utf-8'))
+  self.assertNotIn('data/cpgf_resumo.csv _public/data/',(ROOT/'.github/workflows/publicar.yml').read_text(encoding='utf-8'))
   self.assertTrue(all('cpf' not in r and 'portador' not in r for r in read_existing(ROOT/'data/cpgf_resumo.csv')))
  def test_ipca_15_years(self):
   j=json.loads((ROOT/'data/indicadores_sociais.json').read_text(encoding='utf-8'))

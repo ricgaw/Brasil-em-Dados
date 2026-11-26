@@ -1,0 +1,172 @@
+{
+  "data_consulta": "2026-11-26",
+  "unidade_lucro_receita": "R$ bilhões correntes",
+  "notas": [
+    "Séries incompletas não representam desempenho integral dos quatro mandatos.",
+    "Lucro ajustado, recorrente e contábil são conceitos diferentes. Comparar apenas dentro da mesma empresa, com as qualificações das fontes.",
+    "A dívida bruta de Petrobras é informada em US$ bilhões (não em R$); dívida de empresa pública não deve ser somada à DBGG.",
+    "Resultados de 2026 não incluídos como anos encerrados."
+  ],
+  "empresas": [
+    {
+      "id": "petrobras",
+      "nome": "Petrobras",
+      "tipo": "Economia mista · petróleo e energia",
+      "descricao": "Receita de vendas, lucro atribuível e dívida bruta da companhia. A dívida apresentada está em dólares; não somar à dívida do governo geral.",
+      "fonte_geral": "https://agencia.petrobras.com.br/"
+    },
+    {
+      "id": "bb",
+      "nome": "Banco do Brasil",
+      "tipo": "Economia mista · serviços financeiros",
+      "descricao": "Lucro líquido ajustado. Para bancos, receitas financeiras e carteiras de crédito não devem ser tratadas como faturamento comercial ou dívida corporativa comum.",
+      "fonte_geral": "https://ri.bb.com.br/"
+    },
+    {
+      "id": "caixa",
+      "nome": "Caixa Econômica Federal",
+      "tipo": "Empresa pública · serviços financeiros",
+      "descricao": "Lucro líquido recorrente. Captações e carteira de crédito não equivalem a dívida financeira de uma companhia industrial.",
+      "fonte_geral": "https://ri.caixa.gov.br/"
+    },
+    {
+      "id": "correios",
+      "nome": "Correios",
+      "tipo": "Empresa pública · serviços postais",
+      "descricao": "Resultados líquidos documentados pelo Tribunal de Contas da União. A série histórica completa de receita e passivos exige demonstrações de exercícios comparáveis.",
+      "fonte_geral": "https://www.correios.com.br/acesso-a-informacao/institucional/publicacoes/demonstracoes-financeiras"
+    }
+  ],
+  "registros": [
+    {
+      "empresa": "petrobras",
+      "ano": 2021,
+      "resultado_bi_brl": 106.7,
+      "natureza_resultado": "Lucro líquido divulgado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2022,
+      "resultado_bi_brl": 188.3,
+      "natureza_resultado": "Lucro líquido divulgado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://agencia.petrobras.com.br/documents/d/agencia/desempenho-financeiro-petrobras-4t22-pdf"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2023,
+      "resultado_bi_brl": 124.6,
+      "natureza_resultado": "Lucro líquido divulgado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://agencia.petrobras.com.br/pt/w/negocio/petrobras-alcanca-segundo-maior-lucro-liquido-de-sua-historia-em-2023-r-124-6-bilhoes"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2024,
+      "resultado_bi_brl": 36.606,
+      "natureza_resultado": "Lucro atribuído aos acionistas Petrobras",
+      "receita_bi_brl": 490.829,
+      "endividamento_bi": 60.311,
+      "moeda_endividamento": "USD",
+      "fonte": "https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true"
+    },
+    {
+      "empresa": "petrobras",
+      "ano": 2025,
+      "resultado_bi_brl": 110.129,
+      "natureza_resultado": "Lucro atribuído aos acionistas Petrobras",
+      "receita_bi_brl": 497.549,
+      "endividamento_bi": 69.793,
+      "moeda_endividamento": "USD",
+      "fonte": "https://petrobras.com.br/documents/d/f3a44542-113e-11ee-be56-0242ac120002/relatorio-da-administracao-2025-1?download=true"
+    },
+    {
+      "empresa": "bb",
+      "ano": 2023,
+      "resultado_bi_brl": 35.6,
+      "natureza_resultado": "Lucro líquido ajustado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://investalk.bb.com.br/noticias/mercado/bb-bbas3-resultado-4t23"
+    },
+    {
+      "empresa": "bb",
+      "ano": 2024,
+      "resultado_bi_brl": 37.9,
+      "natureza_resultado": "Lucro líquido ajustado",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://imprensa.bb.com.br/bb-tem-lucro-liquido-ajustado-de-r-379-bilhoes-em-2024/"
+    },
+    {
+      "empresa": "caixa",
+      "ano": 2022,
+      "resultado_bi_brl": 9.2,
+      "natureza_resultado": "Lucro líquido recorrente",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://caixanoticias.caixa.gov.br/Paginas/Not%C3%ADcias/2023/03-MARCO/caixa-registra-lucro-liquido-recorrente-de-r-92-bilhoes-em-2022.aspx"
+    },
+    {
+      "empresa": "caixa",
+      "ano": 2023,
+      "resultado_bi_brl": 10.6,
+      "natureza_resultado": "Lucro líquido recorrente",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://caixanoticias.caixa.gov.br/Paginas/Not%C3%ADcias/2024/02-FEVEREIRO/caixa-tem-lucro-liquido-recorrente-de-r-106-bilhoes-em-2023-e-de-r-29-bilhoes-no-4t23.aspx"
+    },
+    {
+      "empresa": "caixa",
+      "ano": 2024,
+      "resultado_bi_brl": 14.0,
+      "natureza_resultado": "Lucro líquido recorrente",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://caixanoticias.caixa.gov.br/Paginas/Not%C3%ADcias/2025/02-FEVEREIRO/CAIXA-registra-lucro-liquido-recorrente-de-RS-140-bilhoes-em-2024.aspx"
+    },
+    {
+      "empresa": "caixa",
+      "ano": 2025,
+      "resultado_bi_brl": 15.5,
+      "natureza_resultado": "Lucro líquido recorrente",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://caixanoticias.caixa.gov.br/Paginas/Not%C3%ADcias/2026/03-MAR%C3%87O/CAIXA-alcancou-lucro-liquido-recorrente-recorde-de-RS-155-bilhoes-em-2025.aspx"
+    },
+    {
+      "empresa": "correios",
+      "ano": 2024,
+      "resultado_bi_brl": -2.45,
+      "natureza_resultado": "Prejuízo líquido conforme TCU",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://sites.tcu.gov.br/listadealtorisco/sustentabilidade_economico_financeira_dos_correios.html"
+    },
+    {
+      "empresa": "correios",
+      "ano": 2025,
+      "resultado_bi_brl": -8.46,
+      "natureza_resultado": "Prejuízo líquido conforme TCU",
+      "receita_bi_brl": null,
+      "endividamento_bi": null,
+      "moeda_endividamento": null,
+      "fonte": "https://sites.tcu.gov.br/listadealtorisco/sustentabilidade_economico_financeira_dos_correios.html"
+    }
+  ]
+}

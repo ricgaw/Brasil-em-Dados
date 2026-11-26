@@ -9,7 +9,7 @@ class ApresentacaoV14Tests(unittest.TestCase):
   page=(ROOT/'index.html').read_text(encoding='utf-8')
   self.assertIn('class="brand-symbol" aria-hidden="true">BR',page)
   self.assertIn('href="#panorama"',page)
-  for section in ('panorama','mandatos','politicas','orcamento','alteracoes','indicadores','fiscalizacao','cartoes','escandalos','metodologia'):
+  for section in ('panorama','mandatos','politicas','orcamento','alteracoes','indicadores','divida-publica','estatais','escandalos','metodologia'):
    self.assertIn(f'id="{section}"',page)
  def test_busca_e_graficos(self):
   page=(ROOT/'index.html').read_text(encoding='utf-8')
@@ -22,7 +22,7 @@ class ApresentacaoV14Tests(unittest.TestCase):
   self.assertIn('Exercícios parciais' if False else 'parcial',js)
  def test_preserva_as_fontes(self):
   page=(ROOT/'index.html').read_text(encoding='utf-8')
-  for file in ('data/alteracoes_orcamentarias.csv','data/indicadores_sociais.csv','data/escandalos_investigacoes.csv','data/cpgf_resumo.csv'):
+  for file in ('data/alteracoes_orcamentarias.csv','data/indicadores_sociais.csv','data/escandalos_investigacoes.csv','data/divida_pib_bcb.csv','data/estatais_resultados.csv'):
    self.assertIn(file,page)
   self.assertIn('PROJEÇÃO CONTÍNUA · NÃO É MEDIÇÃO AO VIVO',page)
 
