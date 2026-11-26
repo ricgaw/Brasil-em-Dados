@@ -1,0 +1,65 @@
+name: Atualizar dívida pública (BCB, automático)
+
+on:
+  schedule:
+    # A publicação do BCB pode atrasar; duas tentativas mensais, 08:15 UTC.
+    - cron: '15 8 7,21 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: atualizar-divida-bcb-main
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Consultar o SGS 13762 e atualizar apenas valores verificados
+        env:
+          PYTHONUTF8: '1'
+        run: python scripts/atualizar_divida_bcb.py
+      - name: Validar código, fonte e integridade antes de publicar
+        env:
+          PYTHONUTF8: '1'
+        run: |
+          python -m unittest discover -s tests -p "test_*.py"
+          python scripts/validate.py
+          python scripts/validar_v5.py
+          python scripts/auditar_pipeline.py
+      - name: Publicar arquivos se houver mudanças
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/divida_pib_bcb.json data/divida_pib_bcb.csv estatais-divida-data.js
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo 'Sem novos dados: nada a publicar.'
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Dados: atualizar dívida bruta/PIB via BCB SGS 13762"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Publicar GitHub Pages após atualização automática
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # Push usando GITHUB_TOKEN não dispara outros workflows de push.
+          # workflow_dispatch é permitido e inicia o validador + deploy Pages.
+          gh workflow run publicar.yml --ref main

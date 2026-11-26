@@ -4,8 +4,9 @@ ROOT=Path(__file__).resolve().parents[1]
 class V16Tests(unittest.TestCase):
  def test_bcb_years(self):
   d=json.loads((ROOT/'data/divida_pib_bcb.json').read_text(encoding='utf-8'))['observacoes']
-  self.assertEqual([x['ano'] for x in d if x['estado']=='anual'],list(range(2011,2026)))
-  self.assertEqual({x['ano'] for x in d if x['estado']=='parcial'},{2026})
+  self.assertEqual([x['ano'] for x in d if x['estado']=='anual'][:15],list(range(2011,2026)))
+  self.assertLessEqual(len([x for x in d if x['estado']=='parcial']),1)
+  self.assertEqual([x['ano'] for x in d],list(range(2011,d[-1]['ano']+1)))
   self.assertTrue(all(x['codigo_sgs']==13762 and 0<x['dbgg_pct_pib']<200 for x in d))
  def test_statais_sources_and_missing(self):
   d=json.loads((ROOT/'data/estatais_resultados.json').read_text(encoding='utf-8'))
