@@ -41,6 +41,16 @@ source={
  'tse_bens':'https://www.tse.jus.br/comunicacao/noticias/2022/Agosto/eleicoes-2022-consulte-o-patrimonio-dos-candidatos-no-portal-do-tse',
  'plano_tse':'https://divulgacandcontas.tse.jus.br/divulga/#/',
  'temer_posse':'https://www12.senado.leg.br/noticias/materias/2016/08/31/dilma-rousseff-perde-o-mandato-e-temer-e-confirmado-presidente',
+ 'lai2011':'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm',
+ 'anticorrupcao2013':'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12846.htm',
+ 'migracao2017':'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13445.htm',
+ 'lgpd2018':'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm',
+ 'licitacoes2021':'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm',
+ 'igualdade2023':'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14611.htm',
+ 'desenrola2023':'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14690.htm',
+ 'mover2024':'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14902.htm',
+ 'acredita2024':'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14995.htm',
+ 'orgaos2023':'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14600.htm',
 }
 photos={
  'dilma':'https://commons.wikimedia.org/wiki/Special:FilePath/Dilma_Rousseff_-_foto_oficial_2011-01-09_(cropped2).jpg',
@@ -92,6 +102,20 @@ policies.extend([
  ('2023', 'Educação', 'Reorganização do ensino médio', 'Lei 14.945/2024 alterou diretrizes e componentes curriculares do ensino médio.', 'Norma instituída', 'ensinoMedio2024', 'Execução envolve redes estaduais e implementação gradual.'),
  ('2023', 'Educação', 'Uso de dispositivos eletrônicos nas escolas', 'Lei 15.100/2025 restringiu o uso de aparelhos eletrônicos pessoais na educação básica.', 'Norma instituída', 'celular2025', 'Não significa, por si, mudança comprovada em aprendizagem ou saúde mental.'),
  ('2023', 'Tributos', 'Alterações no imposto de renda da pessoa física', 'Lei 15.270/2025 instituiu redutor do IRPF para rendas mensais de até R$ 5 mil a partir de 2026.', 'Norma instituída', 'ir2025', 'Regras de transição e impacto arrecadatório requerem avaliação própria.'),
+])
+# V15 · seleção adicional de normas com link para o texto original no Planalto.
+# Fichas não reivindicam cumprimento de promessas nem atribuem resultados causais.
+policies.extend([
+ ('2011','Transparência','Lei de Acesso à Informação','Lei 12.527/2011 regulamentou o acesso a informações públicas.','Norma instituída','lai2011','A existência de canais legais não garante, isoladamente, transparência efetiva em todos os órgãos.'),
+ ('2011','Integridade','Lei Anticorrupção empresarial','Lei 12.846/2013 disciplinou a responsabilização administrativa e civil de pessoas jurídicas por atos lesivos.','Norma instituída','anticorrupcao2013','A aprovação da lei não mede quantidade de sanções ou redução da corrupção.'),
+ ('2015','Direitos','Lei de Migração','Lei 13.445/2017 estabeleceu direitos e deveres de migrantes e visitantes.','Norma instituída','migracao2017','Sancionada no período Temer; aplicação e efeitos exigem acompanhamento.'),
+ ('2015','Tecnologia e direitos','Lei Geral de Proteção de Dados','Lei 13.709/2018 disciplinou a proteção de dados pessoais.','Norma instituída','lgpd2018','Sancionada no período Temer; vigência e fiscalização evoluíram posteriormente.'),
+ ('2019','Contratações públicas','Nova Lei de Licitações','Lei 14.133/2021 instituiu regras gerais para licitações e contratos administrativos.','Norma instituída','licitacoes2021','A execução depende também dos entes federativos e de seus órgãos.'),
+ ('2023','Trabalho e direitos','Igualdade salarial entre mulheres e homens','Lei 14.611/2023 tratou da igualdade salarial e de critérios remuneratórios.','Norma instituída','igualdade2023','A norma não demonstra, isoladamente, eliminação da disparidade salarial.'),
+ ('2023','Crédito e consumo','Desenrola Brasil','Lei 14.690/2023 instituiu medidas de renegociação de dívidas de pessoas físicas.','Norma instituída','desenrola2023','Quantidades renegociadas e impactos requerem uma série própria.'),
+ ('2023','Indústria e ambiente','Programa Mover','Lei 14.902/2024 instituiu o Programa Mobilidade Verde e Inovação.','Norma instituída','mover2024','Incentivos previstos não equivalem a investimentos ou redução comprovada de emissões.'),
+ ('2023','Empreendedorismo','Programa Acredita e Eco Invest Brasil','Lei 14.995/2024 instituiu programas e medidas de apoio a crédito e investimentos.','Norma instituída','acredita2024','Volume anunciado, contratado e desembolsado devem ser acompanhados separadamente.'),
+ ('2023','Administração pública','Organização dos ministérios em 2023','Lei 14.600/2023 definiu organização básica de ministérios e órgãos da Presidência.','Norma instituída','orgaos2023','Reorganização administrativa não implica, por si só, aumento ou redução de custos.'),
 ])
 policies=[dict(term=a,area=b,title=c,action=d,status=e,source=f,note=g) for a,b,c,d,e,f,g in policies]
 # Atribuição pelo exercício da presidência, sem tratar ato normativo como cumprimento eleitoral.

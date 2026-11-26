@@ -65,6 +65,19 @@ class IntegrationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)/'repo'
             shutil.copytree(src,root,ignore=shutil.ignore_patterns('reports','__pycache__','.git'))
+            # Isolar a base fictícia de 2025. O repositório publicado pode
+            # conter todas as 28 funções reais desse exercício, e o importador
+            # corretamente proíbe substituí-las por valores de teste.
+            budget=root/'data'/'alteracoes_orcamentarias.csv'
+            with budget.open(encoding='utf-8-sig',newline='') as f:
+                existing=csv.DictReader(f,delimiter=';')
+                fields=existing.fieldnames
+                rows=[row for row in existing if not (
+                    row['ano']=='2025' and row['id_escopo'].startswith('funcao-'))]
+            with budget.open('w',encoding='utf-8-sig',newline='') as f:
+                writer=csv.DictWriter(f,fieldnames=fields,delimiter=';',lineterminator='\n')
+                writer.writeheader()
+                writer.writerows(rows)
             output=root/'coleta_exemplo.csv'
             with output.open('w',encoding='utf-8',newline='') as f:
                 w=csv.DictWriter(f,fieldnames=['ano','funcao','dotacao_inicial_reais',

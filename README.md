@@ -1,70 +1,43 @@
 # Brasil em Dados 🇧🇷
 
-**Quatro mandatos presidenciais, dados públicos e contexto para entender o Brasil.**
+**Quatro mandatos presidenciais · 2011 a 2026 · Fontes públicas e contexto.**
 
-O **Brasil em Dados** é um projeto independente de informação e transparência pública. Reúne documentos oficiais sobre a Presidência da República e os governos federais de **2011 a 2026**, com linguagem acessível, gráficos e links para as fontes originais.
+Um portal independente para entender atos de governo, orçamento federal, indicadores sociais e investigações documentadas, sem notas para presidentes e sem atribuir automaticamente a um governante todos os resultados de seu período.
 
-### 🌐 Acesse o site
+**[Acessar o site](https://ricgaw.github.io/Brasil-em-Dados/)**
 
-**[Abrir o Brasil em Dados](https://ricgaw.github.io/Brasil-em-Dados/)**
+## Explore o portal
 
-## O que você encontra
+- **Panorama por mandato:** fichas documentadas, cobertura orçamentária e indicadores disponíveis.
+- **Presidentes e vice-presidentes:** trajetória, período no cargo e subsídio de referência legal.
+- **Políticas públicas:** programas, leis e medidas com busca e filtros por período e área.
+- **Orçamento:** despesas liquidadas (IBGE/Tesouro, 2020–2024) e dotações iniciais, atualizadas e liquidadas por função, quando os exercícios já estiverem consolidados no SIOP.
+- **Indicadores sociais:** IPCA anual (2011–2025) e desocupação anual (2012–2025), com fontes do IBGE.
+- **Gastos e fiscalização:** cartões corporativos e rotas para consultar despesas, viagens, emendas, obras, dívida e vínculos documentados. O CPGF **não** possui série consolidada publicada ainda.
+- **Escândalos e investigações:** casos com fontes, contexto, estado documental e limites de atribuição.
+- **Impostômetro:** projeção ilustrativa identificada e link para a contagem oficial da ACSP.
 
-- **Presidentes e vice-presidentes:** perfis, períodos no cargo e referências legais de remuneração.
-- **Mandatos:** 2011–2014, 2015–2018, 2019–2022 e 2023–2026, com a transição entre Dilma Rousseff e Michel Temer identificada em 2016.
-- **Políticas públicas:** leis, programas e medidas documentadas, com indicação do que ainda precisa ser verificado.
-- **Impostômetro e arrecadação:** projeção animada claramente identificada como estimativa, link para o contador oficial ACSP e histórico nacional documentado (2024–2025; anos anteriores pendentes).
-- **Orçamento federal:** evolução das despesas por função, incluindo Saúde, Educação, Cultura e outras áreas.
-- **Mudanças no orçamento:** comparação entre dotação inicial e atualizada quando há dados oficiais compatíveis.
-- **Escândalos e investigações:** casos documentados, com contexto, fontes e distinção entre investigação, acusação e decisão judicial.
+## Princípios
 
-## Como interpretamos os dados
+Orçamento previsto, atualizado, empenhado, liquidado e pago são etapas diferentes. Valores ausentes não equivalem a zero. Em 2016 houve dois presidentes, e 2026 permanece um exercício parcial. Fontes, metodologia e recortes devem ser conferidos antes de qualquer comparação causal. Investigação não é condenação; vínculo familiar ou societário não demonstra, sozinho, irregularidade.
 
-O projeto **não é vinculado a partidos políticos** e não atribui automaticamente a um presidente todos os acontecimentos de seu mandato. Procuramos distinguir:
+## Código e atualização
 
-- **Orçamento autorizado** de **despesa efetivamente executada**;
-- **Aumento ou redução de dotação** de **bloqueio, contingenciamento ou saldo não gasto**;
-- **Promessa, medida adotada e resultado comprovado**;
-- **Investigação, denúncia, julgamento e condenação**.
+O site está hospedado no GitHub Pages. Os arquivos aprovados entram em `main` e passam por testes antes da publicação. Os dados SIOP são coletados por ano e dependem de revisão e consolidação antes de aparecer nos gráficos. A coleta automática dos cartões da CGU ainda é pendente.
 
-Dados ausentes não são tratados como zero. Um vínculo familiar ou societário, por si só, não é prova de irregularidade.
+- [Guia de coleta incremental SIOP](GUIA_COLETA_INCREMENTAL_V10.md)
+- [Guia de CPGF](GUIA_CPGF_V11.md)
+- [Reorganização das automações](GUIA_REORGANIZACAO_AUTOMACAO_V12.md)
+- [Atualização editorial final V14](GUIA_ATUALIZACAO_FINAL_V14.md)
+- [Cobertura e limitações](RELATORIO_DE_COBERTURA.md)
 
-## Fontes e cobertura
+## Transparência
 
-Utilizamos documentos e dados públicos do **Tesouro Nacional**, **SIOP**, **IBGE**, **TSE**, **Receita Federal**, legislação federal e órgãos de controle. Cada informação do site deve permitir rastrear a fonte utilizada.
+Este é um projeto cívico independente, sem vínculo com partidos, candidatos ou órgãos públicos, e não constitui auditoria oficial. Para indicar erro factual ou desdobramento documental, [abra uma solicitação de correção](https://github.com/ricgaw/Brasil-em-Dados/issues/new) com fontes verificáveis.
 
-A série orçamentária histórica e os levantamentos de promessas e vínculos societários **ainda estão em ampliação**. O exercício de 2026 não está encerrado; números parciais não são apresentados como totais anuais.
 
-**[Relatório de cobertura e limitações](RELATORIO_DE_COBERTURA.md)**
+### Última ampliação editorial — V15
 
-## Atualização dos dados
+O portal contém dossiês de cobertura por mandato, matriz anual de disponibilidade e diretório de fontes oficiais. A seleção de atos normativos foi ampliada com legislação federal e ressalvas sobre o que ainda não é demonstrável. Os painéis distinguem despesa institucional, dados sociais e arrecadação das três esferas. **Valores ausentes não são tratados como zero.**
 
-O GitHub Actions executa testes e publica o site quando as alterações validadas chegam à branch `main`. Há também monitoramento de fontes e um coletor do SIOP em fase de integração. **A coleta histórica completa ainda depende de validação**, e os resultados novos devem ser revisados antes da publicação.
-
-Para detalhes de operação, consulte o [guia de coleta do SIOP](GUIA_COLETA_SIOP_V6.md) e o [guia de automação](GUIA_AUTOMACAO_V5.md).
-
-## Sobre o projeto
-
-O Brasil em Dados é uma iniciativa cívica independente, com finalidade informativa. Não constitui auditoria oficial, investigação criminal ou recomendação de voto. Correções devem ser sustentadas por documentação verificável.
-
-**[Visitar o site](https://ricgaw.github.io/Brasil-em-Dados/)** · **[Consultar as fontes e limitações](RELATORIO_DE_COBERTURA.md)**
-
-### Novas áreas (V7)
-
-- **Indicadores sociais por governo:** série anual nacional da desocupação (2012–2025) e IPCA (2011–2025), com fontes IBGE, gráfico, filtros e CSV.
-- **Gastos e controle social:** fontes e critérios para cartões corporativos, despesas institucionais, viagens, emendas, obras, dívida e vínculos documentados. **Os valores dessas frentes ainda não foram consolidados**; não são exibidos números estimados.
-
-Para ampliar a cobertura, veja [Plano de atualização V7](PLANO_ATUALIZACOES_V7.md).
-
-Para a metodologia e a integração do contador oficial, consulte [Guia do Impostômetro V8](GUIA_IMPOSTOMETRO_V8.md).
-
-**Coleta do SIOP por ano:** veja [Guia de coleta incremental V10](GUIA_COLETA_INCREMENTAL_V10.md). Cada ano tem auditoria e Pull Request própria; os dados só chegam aos gráficos após segunda revisão.
-
-### Atualização V11 — indicadores completos e cartões corporativos
-
-- O **IPCA anual de 2011 a 2025** foi incorporado com a série oficial do IBGE e consulta por mandato; a taxa de desocupação continua em 2012–2025.
-- O novo **painel de cartões corporativos** exibe os totais mensais por órgão **somente quando há arquivos CPGF da CGU importados e revisados**. O painel começa explicitamente sem números.
-- O importador aceita exportações oficiais CSV/ZIP, confere competência, agrega valores em centavos, protege competências já aprovadas e **não publica CPFs, portadores ou favorecidos**. O bruto deve ficar fora do Git.
-- Os workflows de validação e publicação executam também os testes automatizados.
-
-**[Guia específico do CPGF](GUIA_CPGF_V11.md)**. A importação automática dos arquivos mensais da CGU ainda depende da confirmação do endpoint de download; não está ativa.
+A base de arquivos do SIOP aprovada posteriormente à cópia utilizada para esta atualização **não deve ser substituída** pelo ZIP. Instale somente os arquivos alterados; confira a `main` antes do commit.

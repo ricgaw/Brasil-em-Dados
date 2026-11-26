@@ -1,7 +1,7 @@
 'use strict';
 const D=window.ATLAS;
 const q=s=>document.querySelector(s);
-const state={term:'2023',policyTerm:'all',area:'all',chartArea:'Saúde',chartTerm:'all'};
+const state={term:'2023',policyTerm:'all',area:'all',policySearch:'',caseSearch:'',chartArea:'Saúde',chartTerm:'all'};
 const fmt=n=>new Intl.NumberFormat('pt-BR',{maximumFractionDigits:1}).format(n);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const source=(key,label='Fonte oficial')=>`<a target="_blank" rel="noopener noreferrer" href="${esc(D.sources[key])}">${esc(label)} ↗</a>`;
@@ -9,7 +9,7 @@ const pic=(p)=>{
  const ph=D.photos[p.img]||''; const name=esc(p.short||p.name); return `<div class="person-photo"><span>${esc(p.short.split(' ').map(s=>s[0]).join('').slice(0,2))}</span>${ph?`<img src="${encodeURI(ph).replaceAll('%25','%')}" alt="Retrato de ${name}" loading="lazy" onerror="this.remove()">`:''}</div>`;
 };
 function personCard(id,position,term){
- const p=D.people[id];return `<article class="person-card">${pic(p)}<div class="person-info"><span class="job">${esc(position)}</span><h4>${esc(p.name)}</h4><div class="party">${esc(p.party)}</div><p>${esc(p.bio)}</p><div class="company-note"><b>Sociedades/empresas:</b> consulta oficial histórica ainda não consolidada nesta versão. <a href="${D.sources.receita}" target="_blank" rel="noopener noreferrer">Receita ↗</a> · <a href="${D.sources.tse_bens}" target="_blank" rel="noopener noreferrer">TSE ↗</a></div></div></article>`;
+ const p=D.people[id];return `<article class="person-card">${pic(p)}<div class="person-info"><span class="job">${esc(position)}</span><h4>${esc(p.name)}</h4><div class="party">${esc(p.party)}</div><p>${esc(p.bio)}</p><div class="profile-official"><span><b>Subsídio bruto legal de referência</b><strong>${esc(term.salary)}</strong><small>${esc(term.salary_note)} · não é contracheque</small></span><a href="${esc(D.sources[term.salary_src])}" target="_blank" rel="noopener noreferrer">Ato normativo ↗</a></div><div class="company-note"><b>Patrimônio eleitoral e sociedades:</b> verificação individual histórica pendente. A declaração de bens ao TSE não comprova a composição societária atual; parentesco não é prova de favorecimento. <a href="${esc(D.sources.receita)}" target="_blank" rel="noopener noreferrer">Consultar CNPJ ↗</a> · <a href="${esc(D.sources.tse_bens)}" target="_blank" rel="noopener noreferrer">Bens no TSE ↗</a></div></div></article>`;
 }
 function renderTerms(){
  q('#term-tabs').innerHTML=D.terms.map(t=>`<button class="term-tab ${state.term===t.id?'active':''}" role="tab" aria-selected="${state.term===t.id}" data-term="${t.id}"><strong>${t.period}</strong><small>${t.id==='2015'?'Dilma e Temer':D.people[t.presidents[0]].short}</small></button>`).join('');
@@ -24,21 +24,21 @@ function renderTerms(){
 function setupPolicies(){
  const by= q('#policy-term'); by.innerHTML='<option value="all">Todos os mandatos</option>'+D.terms.map(t=>`<option value="${t.id}">${t.period}</option>`).join('');
  const ar=q('#policy-area'); ar.innerHTML='<option value="all">Todas as áreas</option>'+[...new Set(D.policies.map(x=>x.area))].sort().map(x=>`<option>${esc(x)}</option>`).join('');
- by.onchange=()=>{state.policyTerm=by.value;renderPolicies()}; ar.onchange=()=>{state.area=ar.value;renderPolicies()};renderPolicies();
+ by.onchange=()=>{state.policyTerm=by.value;renderPolicies()}; ar.onchange=()=>{state.area=ar.value;renderPolicies()};q('#policy-search').oninput=e=>{state.policySearch=e.target.value.toLocaleLowerCase('pt-BR');renderPolicies()};renderPolicies();
 }
 function renderPolicies(){
- const xs=D.policies.filter(p=>(state.policyTerm==='all'||p.term===state.policyTerm)&&(state.area==='all'||p.area===state.area));
- q('#policy-list').innerHTML=xs.map(p=>`<article class="policy"><div class="policy-head"><span class="area">${esc(p.area)} · ${esc(D.terms.find(t=>t.id===p.term).period)}${p.author?" · "+esc(p.author):""}</span><span class="status">${esc(p.status)}</span></div><h3>${esc(p.title)}</h3><p>${esc(p.action)}</p><small>${esc(p.note)}</small>${source(p.source,'Ver documento')}</article>`).join('')||'<div class="empty-list">Nenhum registro documentado neste filtro.</div>';
+ const xs=D.policies.filter(p=>(state.policyTerm==='all'||p.term===state.policyTerm)&&(state.area==='all'||p.area===state.area)&&(!state.policySearch||[p.title,p.action,p.area,p.author,p.note].join(' ').toLocaleLowerCase('pt-BR').includes(state.policySearch)));
+ q('#policy-count').textContent=`${xs.length} ficha(s) encontrada(s)`;q('#policy-list').innerHTML=xs.map(p=>`<article class="policy"><div class="policy-head"><span class="area">${esc(p.area)} · ${esc(D.terms.find(t=>t.id===p.term).period)}${p.author?" · "+esc(p.author):""}</span><span class="status">${esc(p.status)}</span></div><h3>${esc(p.title)}</h3><p>${esc(p.action)}</p><small>${esc(p.note)}</small>${source(p.source,'Ver documento')}</article>`).join('')||'<div class="empty-list">Nenhum registro documentado neste filtro.</div>';
 }
 function setupCases(){
  const term=q('#case-term');term.innerHTML='<option value="all">Todos os mandatos</option>'+D.terms.map(t=>`<option value="${t.id}">${esc(t.period)}</option>`).join('');
  const types=q('#case-type');types.innerHTML='<option value="all">Todas as naturezas</option>'+[...new Set(D.cases.map(x=>x.kind))].sort().map(x=>`<option>${esc(x)}</option>`).join('');
- term.onchange=renderCases;types.onchange=renderCases;renderCases();
+ term.onchange=renderCases;types.onchange=renderCases;q('#case-search').oninput=e=>{state.caseSearch=e.target.value.toLocaleLowerCase('pt-BR');renderCases()};renderCases();
 }
 function renderCases(){
  const term=q('#case-term').value,type=q('#case-type').value;
- const cases=D.cases.filter(c=>(term==='all'||c.term===term)&&(type==='all'||c.kind===type)).sort((a,b)=>a.year-b.year);
- q('#case-list').innerHTML=cases.map(c=>`<article class="case-card"><div class="case-top"><span class="case-period">${esc(D.terms.find(x=>x.id===c.term).period)} · ${esc(c.period)}</span><span class="case-type">${esc(c.kind)}</span></div><h3>${esc(c.title)}</h3><p class="case-area">${esc(c.area)} · ${esc(c.actor)}</p><div class="case-divider"></div><span class="case-caption">O QUE A FONTE DOCUMENTA</span><p>${esc(c.facts)}</p><div class="case-stage"><b>Situação identificada</b><span>${esc(c.stage)}</span></div><div class="case-caveat"><b>O que NÃO conclui</b><p>${esc(c.boundary)}</p></div><a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.source_label)} ↗</a></article>`).join('')||'<div class="empty-list">Nenhum caso neste filtro.</div>';
+ const cases=D.cases.filter(c=>(term==='all'||c.term===term)&&(type==='all'||c.kind===type)&&(!state.caseSearch||[c.title,c.facts,c.actor,c.area,c.stage,c.boundary].join(' ').toLocaleLowerCase('pt-BR').includes(state.caseSearch))).sort((a,b)=>a.year-b.year);
+ q('#case-count').textContent=`${cases.length} caso(s) encontrado(s)`;q('#case-list').innerHTML=cases.map(c=>`<article class="case-card"><div class="case-top"><span class="case-period">${esc(D.terms.find(x=>x.id===c.term).period)} · ${esc(c.period)}</span><span class="case-type">${esc(c.kind)}</span></div><h3>${esc(c.title)}</h3><p class="case-area">${esc(c.area)} · ${esc(c.actor)}</p><div class="case-divider"></div><span class="case-caption">O QUE A FONTE DOCUMENTA</span><p>${esc(c.facts)}</p><div class="case-stage"><b>Situação identificada</b><span>${esc(c.stage)}</span></div><div class="case-caveat"><b>O que NÃO conclui</b><p>${esc(c.boundary)}</p></div><a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(c.source_label)} ↗</a></article>`).join('')||'<div class="empty-list">Nenhum caso neste filtro.</div>';
 }
 function setupBudget(){
  const areas=[...new Set(D.budget.map(x=>x.area))],sel=q('#chart-area');

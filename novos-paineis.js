@@ -31,3 +31,83 @@ function renderFronts(){const container=el('fiscalizacao-grid');if(!container)re
 if(el('social-chart')){el('social-metric').addEventListener('change',draw);el('social-term').addEventListener('change',draw);draw();}
 if(el('fiscalizacao-grid')){el('fiscalizacao-filter').addEventListener('change',renderFronts);renderFronts();}
 })();
+
+/* Brasil em Dados V14 — painéis derivados somente dos dados já publicados. */
+(() => {
+ 'use strict';
+ const $ = id => document.getElementById(id);
+ const atlas = window.ATLAS || {};
+ const changes = Array.isArray(window.BUDGET_CHANGES) ? window.BUDGET_CHANGES : [];
+ const social = Array.isArray(window.INDICADORES) ? window.INDICADORES : [];
+ const terms = Array.isArray(atlas.terms) ? atlas.terms : [];
+ const escape = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+ const period = year => year <= 2014 ? '2011' : year <= 2018 ? '2015' : year <= 2022 ? '2019' : '2023';
+ const isFunction = item => typeof item.id_escopo === 'string' && item.id_escopo.startsWith('funcao-') && Number.isInteger(+item.ano);
+ const functionRows = changes.filter(isFunction);
+ const fmt = value => Number(value).toLocaleString('pt-BR', {maximumFractionDigits:2});
+ const bi = value => `R$ ${fmt(value / 1e9)} bi`;
+ const metricEnd = (metric, selection) => social.filter(x => x.indicador === metric && (selection === 'all' || period(+x.ano) === selection)).sort((a,b) => a.ano - b.ano).at(-1);
+ function panorama() {
+  const holder = $('panorama-cards');
+  if (!holder) return;
+  const selection = $('panorama-term').value;
+  const matches = year => selection === 'all' || period(+year) === selection;
+  const policies = (atlas.policies || []).filter(x => selection === 'all' || x.term === selection);
+  const cases = (atlas.cases || []).filter(x => selection === 'all' || x.term === selection);
+  const relevant = functionRows.filter(x => matches(x.ano));
+  const years = [...new Set(relevant.map(x => +x.ano))].sort((a,b) => a-b);
+  const completeYears = years.filter(year => relevant.filter(x => +x.ano === year).length === 28);
+  const endIPCA = metricEnd('ipca', selection), endEmployment = metricEnd('desocupacao', selection);
+  const ipcaLabel = endIPCA ? `${fmt(endIPCA.valor)}%` : 'Sem valor';
+  const employmentLabel = endEmployment ? `${fmt(endEmployment.valor)}%` : 'Sem valor';
+  const tiles = [
+   ['Atos e medidas',String(policies.length),'Fichas selecionadas com documento de referência','#politicas'],
+   ['Casos documentados',String(cases.length),'Fichas, não sentenças contra governantes','#escandalos'],
+   ['Exercícios SIOP',`${completeYears.length}`,`${completeYears.length ? completeYears.join(', ') : 'Nenhum ano com 28 funções'} · dotação por função publicada`,'#alteracoes'],
+   ['IPCA mais recente',ipcaLabel,endIPCA?`${endIPCA.ano} · acumulado anual (IBGE)`:'Nenhum ano para o período','#indicadores'],
+   ['Desocupação mais recente',employmentLabel,endEmployment?`${endEmployment.ano} · taxa média anual (IBGE)`:'Nenhum ano para o período','#indicadores']
+  ];
+  holder.innerHTML = tiles.map(([label,value,note,url]) => `<a class="panorama-card" href="${url}"><span>${escape(label)}</span><strong>${escape(value)}</strong><small>${escape(note)}</small><b aria-hidden="true">↗</b></a>`).join('');
+  const t = terms.find(x => x.id === selection);
+  $('panorama-period-note').textContent = selection === 'all' ? 'Cobertura publicada: não equivale à totalidade das ações governamentais.' : `${t ? t.period : ''}${selection === '2015' ? ' · dois presidentes em 2016' : ''}. Dados por exercício, não nota de governo.`;
+ }
+ const years = Array.from({length:16},(_,i) => 2011+i);
+ function chartSvg(rows,area){
+  const vals = rows.flatMap(x => [x.dotacao_inicial_reais,x.dotacao_atualizada_reais,x.liquidado_reais]).filter(x => typeof x === 'number' && Number.isFinite(x) && x >= 0);
+  if (!vals.length) return '<p>Sem valores numéricos validados para essa função.</p>';
+  const W=940,H=290,l=76,r=26,t=28,b=47,top=Math.max(...vals)*1.12 || 1;
+  const xx=y=>l+(+y-2011)*(W-l-r)/15, yy=v=>H-b-(v/top)*(H-t-b);
+  let g='';for(let i=0;i<=4;i++){const v=top*i/4,y=yy(v);g+=`<line x1="${l}" y1="${y}" x2="${W-r}" y2="${y}" stroke="#e0e9e1"/><text x="${l-9}" y="${y+4}" text-anchor="end" fill="#63786e" font-size="11">${escape(fmt(v/1e9))}</text>`}
+  years.forEach((year,i)=>{if(i%2===0||i===15)g+=`<text x="${xx(year)}" y="${H-18}" text-anchor="middle" fill="#63786e" font-size="11">${year}</text>`});
+  const defs=[['dotacao_inicial_reais','#9baead','Inicial'],['dotacao_atualizada_reais','#14735b','Atualizada'],['liquidado_reais','#b38c50','Liquidada']];
+  defs.forEach(([key,color,name])=>{
+   let points=[];
+   const flush=()=>{if(points.length>1)g+=`<polyline points="${points.join(' ')}" stroke="${color}" fill="none" stroke-width="3" stroke-linejoin="round"/>`;points=[]};
+   for(const y of years){const item=rows.find(x=>+x.ano===y);const v=item&&typeof item[key]==='number'?item[key]:null;if(v===null){flush();continue;}points.push(`${xx(y)},${yy(v)}`);g+=`<circle cx="${xx(y)}" cy="${yy(v)}" r="4.3" fill="${color}" stroke="white" stroke-width="1.5"><title>${y} · ${name} · ${bi(v)}${y===2026?' · parcial':''}</title></circle>`}flush();
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Séries por ano de dotação inicial, atualizada e liquidada da função ${escape(area)}, em bilhões de reais nominais"><text x="${l}" y="15" fill="#63786e" font-size="11">R$ bilhões</text>${g}</svg>`;
+ }
+ function budgetTrend(){
+  const area = $('budget-trend-area')?.value;
+  const chart = $('budget-trend-chart'), table = $('budget-trend-table');
+  if(!chart || !table || !area)return;
+  const latestByYear = new Map();
+  functionRows.filter(x=>x.area===area).forEach(x=>{const key=+x.ano, previous=latestByYear.get(key);if(!previous||String(x.data_referencia||'')>String(previous.data_referencia||''))latestByYear.set(key,x);});
+  const rows=[...latestByYear.values()].sort((a,b)=>+a.ano-+b.ano);
+  chart.innerHTML= rows.length ? chartSvg(rows,area) : '<div class="panorama-empty">Ainda não há exercício consolidado para esta área.</div>';
+  table.innerHTML= rows.length ? `<div class="budget-scroll"><table><thead><tr><th>Ano</th><th>Inicial</th><th>Atualizada</th><th>Variação</th><th>Liquidada</th><th>Origem</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${escape(x.ano)}${+x.ano===2026?'*':''}</td><td>${bi(x.dotacao_inicial_reais)}</td><td>${bi(x.dotacao_atualizada_reais)}</td><td class="${x.delta_reais < 0?'budget-negative':'budget-positive'}">${x.delta_reais>0?'+':''}${fmt(x.delta_pct)}%</td><td>${typeof x.liquidado_reais==='number'?bi(x.liquidado_reais):'Não informada'}</td><td><a target="_blank" rel="noopener noreferrer" href="${escape(x.fonte)}">SIOP ↗</a></td></tr>`).join('')}</tbody></table></div>` : '';
+  const latest = rows.at(-1);
+  $('budget-trend-note').textContent = `Fonte SIOP; ${rows.length} exercício(s) publicado(s) para ${area}. Valores em reais nominais. ${latest?.ano === 2026?'* 2026 é parcial, sujeito a revisão. ':''}Variação percentual = (dotação atualizada − dotação inicial) / dotação inicial. Isso não mede isoladamente gastos adicionais ou cortes de serviços.`;
+ }
+ function init(){
+  const sel=$('panorama-term');if(sel){sel.addEventListener('change',panorama);panorama()}
+  const areaSelect=$('budget-trend-area');if(areaSelect){
+   const fromChanges=[...new Set(functionRows.map(x=>x.area))];
+   const fromBudget=[...new Set((atlas.budget||[]).map(x=>x.area))];
+   const all=[...new Set([...fromChanges,...fromBudget])].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+   areaSelect.innerHTML=all.map(area=>`<option value="${escape(area)}" ${area==='Saúde'?'selected':''}>${escape(area)}</option>`).join('');
+   areaSelect.addEventListener('change',budgetTrend);budgetTrend();
+  }
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
