@@ -1,7 +1,5 @@
-name: Verificar e propor novas dotações oficiais
+name: Legado - importar CSV normalizado (manual)
 on:
-  schedule:
-    - cron: '45 9 * * 2'
   workflow_dispatch:
 permissions:
   contents: write

@@ -5,6 +5,9 @@ on:
     paths:
       - 'data/siop_anos/**'
   workflow_dispatch:
+concurrency:
+  group: siop-consolidacao
+  cancel-in-progress: false
 permissions:
   contents: write
   pull-requests: write
@@ -19,10 +22,22 @@ jobs:
           python-version: '3.12'
       - name: Conferir arquivos e consolidar anos aceitos
         run: |
+          python scripts/auditar_pipeline.py --saida reports/auditoria_siop_consolidacao.json
+          python scripts/estado_automacao.py --saida reports/estado_automacao.json
           python scripts/consolidar_siop.py
           python scripts/validate.py
           python scripts/validar_v5.py
           python -m unittest discover -s tests -p 'test_*.py'
+      - name: Guardar auditoria de consolidação
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-consolidacao-siop
+          path: |
+            reports/auditoria_siop_consolidacao.json
+            reports/estado_automacao.json
+          if-no-files-found: ignore
+          retention-days: 30
       - name: Propor atualização do site (segunda aprovação)
         uses: peter-evans/create-pull-request@v7
         with:

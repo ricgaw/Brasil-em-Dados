@@ -56,6 +56,7 @@ jobs:
         run: |
           python scripts/validate.py
           python scripts/validar_v5.py
+          python scripts/auditar_pipeline.py
           python -m unittest discover -s tests -p 'test_*.py'
       - name: Coletar e verificar SOMENTE o ano ${{ matrix.ano }}
         run: python scripts/siop_incremental.py --ano ${{ matrix.ano }}
@@ -73,6 +74,7 @@ jobs:
         run: |
           python scripts/validate.py
           python scripts/validar_v5.py
+          python scripts/auditar_pipeline.py
       - name: Criar PR independente para ${{ matrix.ano }}
         uses: peter-evans/create-pull-request@v7
         with:
